@@ -1,0 +1,39 @@
+{
+    "devMode": true,
+    "allowInbox": true,
+    "autoRefreshDatabase": {
+        "status": true,
+        "timeToRefresh": 1800000,
+        "noti": {
+            "status": true,
+            "log": true,
+            "sendMessage": {
+                "status": false,
+                "sendToGroup": []
+            }
+        }
+    },
+    "commandsDisabled": [],
+    "eventsDisabled": [],
+    "BOTNAME": "Tao Là Siêu Nhân Cherry",
+    "prefix": "#",
+    "BotSystem": "ID Của Nhóm Chứa Tất Cả Bot",
+    "ADMIN": [
+        "ID Của Bạn"
+    ],
+    "resend": {
+        "status": true,
+        "ID": "ID Nhóm Muốn Bot Gửi Tin Nhắn Đã Gỡ",
+        "banned": []
+    },
+    "login": {
+        "email": "",
+        "password": ""
+    },
+    "optionsLogin": {
+        "forceLogin": true,
+        "autoMarkRead": false,
+        "listenEvents": true,
+        "selfListen": true
+    }
+}

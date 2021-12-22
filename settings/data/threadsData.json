@@ -1,0 +1,95 @@
+{
+    "4127643970650750": {
+        "ID": "4127643970650750",
+        "name": "Bot System",
+        "emoji": "🌑",
+        "prefix": "",
+        "members": {
+            "100005548624106": {
+                "ID": "100005548624106",
+                "totalMsg": 15,
+                "bietdanh": "Ryg",
+                "banned": {
+                    "status": false,
+                    "lido": ""
+                }
+            },
+            "100024885516994": {
+                "ID": "100024885516994",
+                "totalMsg": 14,
+                "bietdanh": "Bot siu cutee",
+                "banned": {
+                    "status": false,
+                    "lido": ""
+                }
+            }
+        },
+        "color": "7AA286",
+        "totalMsg": 7996,
+        "adminIDs": [
+            {
+                "id": "100005548624106"
+            },
+            {
+                "id": "100024885516994"
+            }
+        ],
+        "avatarGroup": "https://scontent.fhan5-8.fna.fbcdn.net/v/t1.15752-9/215210306_3044372742459876_3238203366633548654_n.jpg?_nc_cat=110&ccb=1-5&_nc_sid=02e273&_nc_ohc=6Tf-O5NACpkAX9O_OWj&_nc_ht=scontent.fhan5-8.fna&oh=03_AVIdg6eWMzCXuvGMV3gQGMDPEe8FGNecu2qARV9vCOzOlQ&oe=61E6FF77",
+        "msgWelcome": "",
+        "msgLeave": "",
+        "banned": {
+            "status": false,
+            "lido": ""
+        },
+        "createTime": {
+            "timestamp": 1640160378550,
+            "fullTime": "15:04:59 22/12/2021"
+        },
+        "lastUpdate": 1640160378550
+    },
+    "4056647361103163": {
+        "ID": "4056647361103163",
+        "name": "Box Cờ Bạc Online Infinitely+",
+        "emoji": "🤣",
+        "prefix": "",
+        "members": {
+            "100023019276462": {
+                "ID": "100023019276462",
+                "totalMsg": 16,
+                "bietdanh": "",
+                "banned": {
+                    "status": false,
+                    "lido": ""
+                }
+            },
+            "100024885516994": {
+                "ID": "100024885516994",
+                "totalMsg": 26,
+                "bietdanh": "",
+                "banned": {
+                    "status": false,
+                    "lido": ""
+                }
+            }
+        },
+        "color": "C03232",
+        "totalMsg": 17396,
+        "adminIDs": [
+            {
+                "id": "100005548624106"
+            }
+        ],
+        "avatarGroup": null,
+        "msgWelcome": "",
+        "msgLeave": "",
+        "banned": {
+            "status": false,
+            "lido": ""
+        },
+        "createTime": {
+            "timestamp": 1640160823933,
+            "fullTime": "15:13:40 22/12/2021"
+        },
+        "lastUpdate": 1640160823933
+    }
+}

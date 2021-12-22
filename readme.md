@@ -39,6 +39,8 @@
      ```
 - Video Hướng Dẫn: Coming Soon...
 ##### Mobile
+
+###### Android
 - Các lệnh cần thiết (Sắp xếp theo thứ tự rồi nhé, cứ copy vậy mà dán, không cần tách ra như video):
     ```sh
     pkg install git && pkg install nodejs

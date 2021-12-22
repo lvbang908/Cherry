@@ -25,16 +25,14 @@
 - Một tài khoản dùng làm Bot (Khuyến khích dùng acc clone)
 
 ##### Windows
-- Tải về NodeJS và Git sau đó cài đặt vào máy.<br/>
+- Tải về [NodeJS](https://nodejs.org/en/) và [Git](https://git-scm.com/) sau đó cài đặt vào máy.<br/>
 - Sau khi cài xong NodeJS và Git, mở cmd ở Thư mục bất kì trong This PC và gõ:
     ```sh
     git clone https://github.com/hoahenry/Cherry.git
     ```
-- Chờ Git clone xong thì tìm thư mục settings của bot (Ở phần vừa bật cmd lên sẽ thấy), sửa: email & password thành email & password của tài khoản Bot.</br>
-Sau khi sửa xong, bật cmd tại thư mục của Bot và gõ:
-    ```sh
-    npm login.
-    ```
+- Chờ Git clone xong thì tải extension [C3C FB State](https://github.com/c3cbot/c3c-fbstate/archive/refs/heads/master.zip) về máy, giải nén ra rồi vào mục [Extension](coccoc://extensions/) của máy, bật chế độ dành cho nhà phát triển. Sau đó chọn "Tải tiện ích đã giải nén", tìm đến thư mục vừa giải nén C3C FB State và chọn mở.
+- Tiếp theo là đăng nhập vào facebook bằng tài khoản của Bot, mở extension C3C FB State lên và chọn export FB State.
+- Đưa file appstate.json vừa nhận được ở trên vào thư mục chứa bot (hoặc copy và dán vào file sẵn có)
 - Video Hướng Dẫn: Coming Soon...
 ##### Mobile
 - Dài quá lười viết... Chờ video hướng dẫn nha :<

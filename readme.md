@@ -39,7 +39,36 @@
      ```
 - Video Hướng Dẫn: Coming Soon...
 ##### Mobile
-- Dài quá lười viết... Chờ video hướng dẫn nha :<
+- Các lệnh cần thiết (Sắp xếp theo thứ tự rồi nhé, cứ copy vậy mà dán, không cần tách ra như video):
+    ```sh
+    pkg install git && pkg install nodejs
+    ```
+    ```sh
+    termux-setup-storage
+    ```
+    ```sh
+    apt update && apt upgrade
+    ```
+    ```sh
+    cd /sdcard
+    ```
+    ```sh
+    git clone https://github.com/hoahenry/Cherry
+    ```
+    ```sh
+    cd $home
+    ```
+    ```sh
+    mv /sdcard/Cherry ~
+    ```sh
+    cd ./Cherry
+    ```
+    ```sh
+    npm i
+    ```
+    ```sh
+    npm start
+    ```
    
 <!-- License -->
 ## License

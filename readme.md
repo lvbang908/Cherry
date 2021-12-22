@@ -32,7 +32,11 @@
     ```
 - Chờ Git clone xong thì tải extension [C3C FB State](https://github.com/c3cbot/c3c-fbstate/archive/refs/heads/master.zip) về máy, giải nén ra rồi vào mục [Extension](coccoc://extensions/) của máy, bật chế độ dành cho nhà phát triển. Sau đó chọn "Tải tiện ích đã giải nén", tìm đến thư mục vừa giải nén C3C FB State và chọn mở.
 - Tiếp theo là đăng nhập vào facebook bằng tài khoản của Bot, mở extension C3C FB State lên và chọn export FB State.
-- Đưa file appstate.json vừa nhận được ở trên vào thư mục chứa bot (hoặc copy và dán vào file sẵn có)
+- Đưa file appstate.json vừa nhận được ở trên vào thư mục chứa bot (hoặc copy và dán vào file sẵn có).
+- Gõ:
+     ```sh
+     npm start
+     ```
 - Video Hướng Dẫn: Coming Soon...
 ##### Mobile
 - Dài quá lười viết... Chờ video hướng dẫn nha :<

@@ -37,7 +37,7 @@
      ```sh
      npm start
      ```
-- Video Hướng Dẫn: Coming Soon...
+- Video Hướng Dẫn: [Official Chanel](https://youtu.be/4OzPMrN-qC4)
 ##### Mobile
 
 ###### Android
@@ -76,6 +76,7 @@
     ```sh
     npm start
     ```
+- Video Hướng Dẫn: Coming soon...
 ##### IOS
 - Chưa có điều kiện
 

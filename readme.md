@@ -67,6 +67,7 @@
     ```
     ```sh
     mv /sdcard/Cherry ~
+    ```
     ```sh
     cd ./Cherry
     ```

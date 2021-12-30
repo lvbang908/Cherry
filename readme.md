@@ -19,8 +19,7 @@
 
 <!-- Log -->
 ## Log
-    <sumary>Log</sumary>
-    <ol> Ver 1.0.0 </ol>
+    <li>...</li>
     
 <!-- Install -->
 ## Install

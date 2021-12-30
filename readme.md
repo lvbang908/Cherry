@@ -19,7 +19,6 @@
 
 <!-- Log -->
 ## Log
-    <li>...</li>
     
 <!-- Install -->
 ## Install

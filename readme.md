@@ -99,6 +99,6 @@
 ## Donate
 
 <li>Momo: 0364694797</li>
-<li>VietinBank: 100873588155 (Chi nhánh Bình Xuyên - Trưng Trắc</li>
+<li>VietinBank: 100873588155 (Chi nhánh Bình Xuyên - PGD Trưng Trắc)</li>
 - Total Income: 0
 <li>Thank: ...</li>

@@ -20,25 +20,23 @@
 <!-- Log -->
 ## Log
 
-<details open="false">
+<details>
     <sumary>Version 3.0.0</sumary>
-    <ol>
-    - Cherry - Super Ban: Lệnh cấm sử dụng Bot.
-    - Testmode: Chể độ này chỉ người quản lí Bot (ADMIN) mới được sử dụng.
-    - Fix delay khi sử dụng lệnh lúc mới start Bot.
-    - Sửa lệnh offbox thành busy và sửa lỗi xử lí sự kiện.
-    - Thay đổi một số biến, function cần thiết.
-    - Thêm check update: Bạn không cần phải kiểm tra thủ công về việc có phiên bản mới hay chưa, từ giờ nếu có bản cập nhật, bạn sẽ nhận được thông báo.
-    - Bổ sung thêm một số lệnh: load, unload, allin, sinhnhat...
-    - Thêm Purchase command: Nếu bạn muốn Bot của mình có thêm lệnh, bạn có thể kiểm tra danh sách lệnh được đăng bán bằng lệnh "buy".
+    - Cherry - Super Ban: Lệnh cấm sử dụng Bot. </br>
+    - Testmode: Chể độ này chỉ người quản lí Bot (ADMIN) mới được sử dụng.</br>
+    - Fix delay khi sử dụng lệnh lúc mới start Bot.</br>
+    - Sửa lệnh offbox thành busy và sửa lỗi xử lí sự kiện.</br>
+    - Thay đổi một số biến, function cần thiết.</br>
+    - Thêm check update: Bạn không cần phải kiểm tra thủ công về việc có phiên bản mới hay chưa, từ giờ nếu có bản cập nhật, bạn sẽ nhận được thông báo.</br>
+    - Bổ sung thêm một số lệnh: load, unload, allin, sinhnhat...</br>
+    - Thêm Purchase command: Nếu bạn muốn Bot của mình có thêm lệnh, bạn có thể kiểm tra danh sách lệnh được đăng bán bằng lệnh "buy".</br>
     - More fix...
-    </ol>
 </details>
-<details open="false">
+<details>
     <sumary>Version 2.0.0</sumary>
     - Fix database, command
 </details>
-<details open="false">
+<details>
     <sumary>Version 1.0.0</sumary>
     - The beginning of Cherry
 </details>

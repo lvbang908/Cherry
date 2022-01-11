@@ -109,7 +109,7 @@
 <!-- License -->
 ## License
 
-- Sử dụng giấy phép MIT, chi tiết vui lòng xem tại đây: [LICENSE](https://github.com/hoahenry/Cherry/blob/main/license)
+- Sử dụng giấy phép MIT, chi tiết vui lòng xem tại đây: [LICENSE](https://github.com/hoahenry/Cherry#readme)
 
 <!-- Contact -->
 ## Contact

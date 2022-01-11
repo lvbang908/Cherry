@@ -21,7 +21,7 @@
 ## Log
 
 <details>
-    <sumary>Version 3.0.0</sumary>
+    <summary>Version 3.0.0</summary>
     - Cherry - Super Ban: Lệnh cấm sử dụng Bot. </br>
     - Testmode: Chể độ này chỉ người quản lí Bot (ADMIN) mới được sử dụng.</br>
     - Fix delay khi sử dụng lệnh lúc mới start Bot.</br>
@@ -33,11 +33,11 @@
     - More fix...
 </details>
 <details>
-    <sumary>Version 2.0.0</sumary>
+    <summary>Version 2.0.0</summary>
     - Fix database, command
 </details>
 <details>
-    <sumary>Version 1.0.0</sumary>
+    <summary>Version 1.0.0</summary>
     - The beginning of Cherry
 </details>
     

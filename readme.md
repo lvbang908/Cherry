@@ -30,15 +30,15 @@
     - Thêm check update: Bạn không cần phải kiểm tra thủ công về việc có phiên bản mới hay chưa, từ giờ nếu có bản cập nhật, bạn sẽ nhận được thông báo.</br>
     - Bổ sung thêm một số lệnh: load, unload, allin, sinhnhat...</br>
     - Thêm Purchase command: Nếu bạn muốn Bot của mình có thêm lệnh, bạn có thể kiểm tra danh sách lệnh được đăng bán bằng lệnh "buy".</br>
-    - More fix...
+    - More fix...</br>
 </details>
 <details>
     <summary>Version 2.0.0</summary>
-    - Fix database, command
+    - Fix database, command</br>
 </details>
 <details>
     <summary>Version 1.0.0</summary>
-    - The beginning of Cherry
+    - The beginning of Cherry</br>
 </details>
     
 <!-- Install -->

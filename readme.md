@@ -41,6 +41,7 @@
     ```sh
     The beginning of Cherry
     ```
+</details>
     
 <!-- Install -->
 ## Install

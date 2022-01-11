@@ -20,7 +20,7 @@
 <!-- Log -->
 ## Log
 
-<details open="close">
+<details open="false">
     <sumary>Version 3.0.0</sumary>
     ```sh
     - Cherry - Super Ban: Lệnh cấm sử dụng Bot.

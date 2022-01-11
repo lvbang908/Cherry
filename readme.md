@@ -22,6 +22,7 @@
 
 <details open="false">
     <sumary>Version 3.0.0</sumary>
+    <ol>
     - Cherry - Super Ban: Lệnh cấm sử dụng Bot.
     - Testmode: Chể độ này chỉ người quản lí Bot (ADMIN) mới được sử dụng.
     - Fix delay khi sử dụng lệnh lúc mới start Bot.
@@ -31,6 +32,7 @@
     - Bổ sung thêm một số lệnh: load, unload, allin, sinhnhat...
     - Thêm Purchase command: Nếu bạn muốn Bot của mình có thêm lệnh, bạn có thể kiểm tra danh sách lệnh được đăng bán bằng lệnh "buy".
     - More fix...
+    </ol>
 </details>
 <details open="false">
     <sumary>Version 2.0.0</sumary>

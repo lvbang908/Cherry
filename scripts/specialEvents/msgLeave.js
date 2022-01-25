@@ -25,7 +25,8 @@ module.exports.run = async function({ api, event, Threads, Users, multiple, Cher
         for (var i of data.members) multiple.allUsersInfo.delete(i.ID);
         return api.sendMessage(`${event.author != api.getCurrentUserID() ? `Người dùng có ID: ${event.author} đã kick Bot ra khỏi nhóm ${data.name}!` : `Bot đã tự rời khỏi nhóm: ${data.name}`} vào lúc ${fullTime}`, botSytem);
     }
-	const name = ((await Users.getData(event.logMessageData.leftParticipantFbId)).name || (await Users.getInfo(event.logMessageData.leftParticipantFbId)).name);
+	var info = multiple.allUsersInfo.get(event.logMessageData.leftParticipantFbId) || await Users.getInfo(event.logMessageData.leftParticipantFbId);
+	const name = info.name;
 	const type = (event.author == event.logMessageData.leftParticipantFbId) ? "tự rời" : "bị quản trị viên xóa";
 	const path = join(__dirname, "cache", "leaveGif");
 	const gifPath = join(path, `${threadID}.gif`);

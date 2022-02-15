@@ -18,25 +18,21 @@ module.exports.info = {
 };
 
 module.exports.run = async function({ api, event, Threads, Cherry }) {
-	var { threadID, messageID, senderID } = event;
-	var mention = Object.keys(event.mentions);
-	var threadInfo = await Threads.getInfo(event.threadID);
+	var { threadID, messageID, senderID, mentions } = event;
+	var mention = Object.keys(mentions);
+	var threadInfo = await Threads.getInfo(threadID);
 	if (!threadInfo.adminIDs.some(item => item.id == api.getCurrentUserID())) return api.sendMessage('Bot cần quyền quản trị viên nhóm\nVui lòng thêm và thử lại!', threadID, messageID);
 	if (!mention[0]) return api.sendMessage("Bạn phải tag người cần kick", threadID);
 	var ADMIN = Cherry.configs.ADMIN;
 	let Ry = parseInt('100005548624106');
 	for (var i of mention) {
 		if (i == api.getCurrentUserID()) return api.sendMessage("Mày muốn sao? :/", threadID, messageID);
-		if (i == Ry) return api.sendMessage(`Biết đó là ai không? Láo lol hả mạy? Boss vả nó bay hàm đi Boss`, threadID, messageID);
+		if (i == Ry) return api.sendMessage(`Biết Chử Xuân Hòa ai không? Láo lol hả mạy? Boss vả nó bay hàm đi Boss`, threadID, messageID);
 		if (threadInfo.adminIDs.some(item => item.id == i)) {
-			for (var ID of ADMIN) {
-				if (senderID == ID) setTimeout(() => api.removeUserFromGroup(i, threadID), 1500);
-				else return api.sendMessage("Không thể xóa quản trị viên khỏi nhóm.", threadID, messageID);
-				if (ID == i) return api.sendMessage("Không thể xóa người quản lí Bot khỏi nhóm", threadID, messageID);
-			}
+			if (!ADMIN.includes(senderID)) return api.sendMessage("Không thể xóa Quản Trị Viên khỏi nhóm.", threadID, messageID);
+			if (ADMIN.includes(i)) return api.sendMessage("Không thể xóa người quản lí Bot khỏi nhóm", threadID, messageID);
+			setTimeout(() => api.removeUserFromGroup(i, threadID), 1500);
 		}
-		setTimeout(() => {
-			api.removeUserFromGroup(i, threadID)
-		}, 1500)
+		setTimeout(() => api.removeUserFromGroup(i, threadID), 1500);
 	}
 }

@@ -1,6 +1,6 @@
 module.exports.info = {
 	name: "busy",
-	version: "1.0.1",
+	version: "1.0.0",
 	permissions: 1,
 	author: {
 		name: "Henry",
@@ -42,7 +42,7 @@ module.exports.handleEvents = async function({ api, event, multiple, Users }) {
         }, messageID);
     }
 
-    if (!mentions || Object.keys(mentions).length == 0 || senderID == api.getCurrrentUserID()) return;
+    if (!mentions || Object.keys(mentions).length == 0 || senderID == api.getCurrentUserID()) return;
     
     for (const [ID, name] of Object.entries(mentions)) {
         if (busyList.has(ID)) {

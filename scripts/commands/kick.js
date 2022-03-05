@@ -32,6 +32,7 @@ module.exports.run = async function({ api, event, Threads, Cherry }) {
 			if (!ADMIN.includes(senderID)) return api.sendMessage("Không thể xóa Quản Trị Viên khỏi nhóm.", threadID, messageID);
 			if (ADMIN.includes(i)) return api.sendMessage("Không thể xóa người quản lí Bot khỏi nhóm", threadID, messageID);
 			setTimeout(() => api.removeUserFromGroup(i, threadID), 1500);
+			continue;
 		}
 		setTimeout(() => api.removeUserFromGroup(i, threadID), 1500);
 	}

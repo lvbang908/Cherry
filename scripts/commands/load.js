@@ -63,6 +63,7 @@ module.exports.run = function({ api, event, args, Cherry, multiple }) {
                 return api.sendMessage(`Đã load xong ${args.length} commands.\n\nThời Gian: ${Date.now() - ping}ms.`, threadID);
             } else {
                 var listCommands = readdirSync("./scripts/commands").filter(file => file.endsWith(".js") && !file.includes('example') && !Cherry.configs.commandsDisabled.includes(file));
+		loadCmds({ api, threadID, Cherry, multiple, listCommands });
                 return api.sendMessage(`Đã load xong ${multiple.commands.size} commands.\n\nThời Gian: ${Date.now() - ping}ms`, threadID);
             }
         case "event":

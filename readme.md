@@ -9,39 +9,14 @@
 <details open="open">
     <summary>Menu</summary>
     <ol>
-        <li><a href="https://github.com/hoahenry/Cherry-Data/blob/main/notifications.md">Thông Báo</a></li>
         <li><a href="#Log">Log</a></li>
         <li><a href="#Install">Hướng dẫn cài đặt</a></li>
-        <li><a href="#License">Giấy Phép</a></li>
-        <li><a href="#Contact">Liên Hệ</a></li>
+        <li><a href="#License">License</a></li>
+        <li><a href="#Contact">Contact</a></li>
       <li><a href="#Donate">Donate</a></li>
     </ol>
 </details>
 
-<!-- Log -->
-## Log
-
-<details>
-    <summary>Version 3.0.0</summary>
-    - Cherry - Super Ban: Lệnh cấm sử dụng Bot. </br>
-    - Testmode: Chể độ này chỉ người quản lí Bot (ADMIN) mới được sử dụng.</br>
-    - Fix delay khi sử dụng lệnh lúc mới start Bot.</br>
-    - Sửa lệnh offbox thành busy và sửa lỗi xử lí sự kiện.</br>
-    - Thay đổi một số biến, function cần thiết.</br>
-    - Thêm check update: Bạn không cần phải kiểm tra thủ công về việc có phiên bản mới hay chưa, từ giờ nếu có bản cập nhật, bạn sẽ nhận được thông báo.</br>
-    - Bổ sung thêm một số lệnh: load, unload, allin, sinhnhat...</br>
-    - Thêm Purchase command: Nếu bạn muốn Bot của mình có thêm lệnh, bạn có thể kiểm tra danh sách lệnh được đăng bán bằng lệnh "buy".</br>
-    - More fix...</br>
-</details>
-<details>
-    <summary>Version 2.0.0</summary>
-    - Fix database, command</br>
-</details>
-<details>
-    <summary>Version 1.0.0</summary>
-    - The beginning of Cherry</br>
-</details>
-    
 <!-- Install -->
 ## Install
 
@@ -54,7 +29,7 @@
 - Tải về [NodeJS](https://nodejs.org/en/) và [Git](https://git-scm.com/) sau đó cài đặt vào máy.<br/>
 - Sau khi cài xong NodeJS và Git, mở cmd ở Thư mục bất kì trong This PC và gõ:
     ```sh
-    git clone https://github.com/hoahenry/Cherry.git
+    git clone https://github.com/hoahenry/Cherry
     ```
 - Chờ Git clone xong thì tải extension [C3C FB State](https://github.com/c3cbot/c3c-fbstate/archive/refs/heads/master.zip) về máy, giải nén ra rồi vào mục [Extension](coccoc://extensions/) của máy, bật chế độ dành cho nhà phát triển. Sau đó chọn "Tải tiện ích đã giải nén", tìm đến thư mục vừa giải nén C3C FB State và chọn mở.
 - Tiếp theo là đăng nhập vào facebook bằng tài khoản của Bot, mở extension C3C FB State lên và chọn export FB State.
@@ -110,7 +85,7 @@
 <!-- License -->
 ## License
 
-- Sử dụng giấy phép MIT, chi tiết vui lòng xem tại đây: [LICENSE](https://github.com/hoahenry/Cherry#readme)
+- Sử dụng giấy phép MIT, chi tiết vui lòng xem tại đây: [LICENSE](https://github.com/hoahenry/Cherry/blob/main/license)
 
 <!-- Contact -->
 ## Contact

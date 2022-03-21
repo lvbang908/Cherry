@@ -39,48 +39,8 @@
      npm start
      ```
 - Video Hướng Dẫn: [Official Chanel](https://youtu.be/4OzPMrN-qC4)
-##### Mobile
-
-###### Android
-- Tải và cài đặt [Termux](https://f-droid.org/repo/com.termux_117.apk)
-- QuickEdit: [Tại Đây](https://play.google.com/store/apps/details?id=com.rhmsoft.edit&hl=vi&gl=US)
-- KiwiBrowser: [Tại Đây](https://play.google.com/store/apps/details?id=com.kiwibrowser.browser&hl=vi&gl=US)
-- C3C State: [Tại Đây](https://github.com/c3cbot/c3c-fbstate/releases/download/1.0/c3c-fbstate-extractor.crx)
-
-- Các lệnh cần thiết (Sắp xếp theo thứ tự rồi nhé, cứ copy vậy mà dán, không cần tách ra như video):
-    ```sh
-    pkg install git && pkg install nodejs
-    ```
-    ```sh
-    termux-setup-storage
-    ```
-    ```sh
-    apt update && apt upgrade
-    ```
-    ```sh
-    cd /sdcard
-    ```
-    ```sh
-    git clone https://github.com/hoahenry/Cherry
-    ```
-    ```sh
-    cd $home
-    ```
-    ```sh
-    mv /sdcard/Cherry ~
-    ```
-    ```sh
-    cd ./Cherry
-    ```
-    ```sh
-    npm i
-    ```
-    ```sh
-    npm start
-    ```
-- Video Hướng Dẫn: Coming soon...
-##### IOS
-- Chưa có điều kiện
+##### Replit
+    - Video: coming soon...
 
 <!-- License -->
 ## License

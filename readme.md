@@ -9,7 +9,7 @@
 <details open="open">
     <summary>Menu</summary>
     <ol>
-        <li><a href="#Log">Log</a></li>
+        <li><a href="https://github.com/hoahenry/Cherry-Data/blob/main/notifications.md">Thông Báo</a></li>
         <li><a href="#Install">Hướng dẫn cài đặt</a></li>
         <li><a href="#License">License</a></li>
         <li><a href="#Contact">Contact</a></li>

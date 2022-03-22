@@ -1,7 +1,7 @@
-module.exports = function ({ Cherry, api }) {
+module.exports = function ({ Cherry, api, multiple }) {
     const { writeFileSync, readFileSync } = require("fs-extra");
     var fullTime = Cherry.getTime("fullTime");
-    const log = Cherry.log;
+    const { log } = Cherry, { inProcess } = multiple;
     var path = __dirname + "/data/threadsData.json";
 
     try {
@@ -23,8 +23,6 @@ module.exports = function ({ Cherry, api }) {
 		try {
             if (!threadID) throw new Error("threadID không được để trống");
             if (isNaN(threadID)) throw new Error("threadID không hợp lệ");
-            if (!userID) throw new Error("ID người dùng không được để trống");
-            if (isNaN(userID)) throw new Error("ID người dùng không hợp lệ");
             if (threadsData.hasOwnProperty(threadID)) throw new Error(`Threads mang ID: ${threadID} đã tồn tại trong Database`);
             var threadInfo = await api.getThreadInfo(threadID);
             var data = {
@@ -33,13 +31,7 @@ module.exports = function ({ Cherry, api }) {
                     name: threadInfo.threadName,
                     emoji: threadInfo.emoji,
                     prefix: "",
-                    members: {
-                        [userID]: {
-                            ID: userID,
-                            totalMsg: 1,
-                            bietdanh: threadInfo.nicknames[userID] || ""
-                        }
-                    },
+                    members: {},
                     color: threadInfo.color,
                     totalMsg: threadInfo.messageCount,
                     adminIDs: threadInfo.adminIDs,
@@ -69,7 +61,7 @@ module.exports = function ({ Cherry, api }) {
             if (!userID) throw new Error("ID người dùng không được để trống");
             if (isNaN(userID)) throw new Error("ID người dùng không hợp lệ");
             var threadData = await getData(threadID);
-            if (threadData.members.hasOwnProperty(userID)) throw new Error(`Người dùng mang ID: ${userID} đã tồn tại trong Database`);
+            if (threadData.members.hasOwnProperty(userID)) throw new Error(`Người dùng mang ID: ${userID} đã tồn tại trong Database của nhóm này`);
             var threadInfo = await getInfo(threadID);
             var data = {
                 [userID]: {
@@ -203,7 +195,7 @@ module.exports = function ({ Cherry, api }) {
         try {
             if (!threadID) throw new Error("threadID không được để trống");
             if (isNaN(threadID)) throw new Error("threadID không hợp lệ");
-            if (!threadsData.hasOwnProperty(threadID)) throw new Error(`Threads mang ID: ${threadID} không có trong Database`);
+            if (!threadsData.hasOwnProperty(threadID)) await createData(threadID);
             const data = threadsData[threadID];
             if (callback && typeof callback == "function") callback(null, data);
             return data;

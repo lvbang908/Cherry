@@ -1,7 +1,7 @@
-module.exports = function ({ Cherry }) {
+module.exports = function ({ Cherry, multiple }) {
     const fullTime = Cherry.getTime("fullTime");
     const { readFileSync, writeFileSync } = require("fs-extra");
-    const log = Cherry.log;
+    const { log } = Cherry, { inProcess } = multiple;
     var path = __dirname + '/data/othersData.json';
 
     try {
@@ -24,6 +24,7 @@ module.exports = function ({ Cherry }) {
             if (!userID) throw new Error("ID người dùng không được để trống");
             if (isNaN(userID)) throw new Error("ID người dùng không hợp lệ");
             if (othersData.hasOwnProperty(userID)) throw new Error(`Người dùng mang ID: ${userID} đã tồn tại trong Database`);
+            multiple.inProcess = true;
             var data = {
                 [userID]: {
                     ID: userID,

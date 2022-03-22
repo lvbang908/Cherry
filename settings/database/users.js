@@ -1,7 +1,7 @@
-module.exports = function ({ Cherry, api }) {
+module.exports = function ({ Cherry, api, multiple }) {
     const { readFileSync, writeFileSync } = require("fs-extra");
     var fullTime = Cherry.getTime("fullTime");
-    const log = Cherry.log;
+    const { log } = Cherry, { inProcess } = multiple;
     var path = __dirname + "/data/usersData.json";
 
     try {
@@ -23,7 +23,7 @@ module.exports = function ({ Cherry, api }) {
 		try {
             if (!userID) throw new Error("ID người dùng không được để trống");
             if (isNaN(userID)) throw new Error("ID người dùng không hợp lệ");
-            var userInfo = (await api.getUserInfo(userID))[userID];
+            var userInfo = await getInfo(userID);
             if (usersData.hasOwnProperty(userID)) throw new Error(`Người dùng mang ID: ${userID} đã tồn tại trong Database`);
             var data = {
                 [userID]: {
@@ -46,7 +46,7 @@ module.exports = function ({ Cherry, api }) {
             return data;
         } catch (error) {
             if (callback && typeof callback == "function") callback(error, null);
-            return log("USERS - CREATE DATA", error.stack, "error");
+            return log("USERS - CREATE DATA", error, "error");
         }
 	}
 
@@ -82,7 +82,9 @@ module.exports = function ({ Cherry, api }) {
 		try {
             if (!userID) throw new Error("ID người dùng không được để trống");
             if (isNaN(userID)) throw new Error("ID người dùng không hợp lệ");
-            if (!usersData.hasOwnProperty(userID)) return;
+            if (!usersData.hasOwnProperty(userID)) await createData(userID, (error, info) => {
+                return info;
+            });
             const data = usersData[userID];
             if (callback && typeof callback == "function") callback(null, data);
             return data;
@@ -158,7 +160,7 @@ module.exports = function ({ Cherry, api }) {
             if (userInfo.hasOwnProperty('active')) userInfo.active = userInfo.active;
             userInfo.createTime = userInfo.createTime;
             userInfo.lastUpdate = Date.now();
-            await setData(userID, userInfo)
+            await setData(userID, userInfo);
         } catch (error) {
             return log("USERS - REFRESH DATABASE", error.stack, 'error')
         }

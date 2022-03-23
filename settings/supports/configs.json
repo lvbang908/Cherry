@@ -1,6 +1,6 @@
 {
     "devMode": true,
-    "testMode": true,
+    "testMode": false,
     "allowInbox": false,
     "refreshDatabase": {
         "status": true,

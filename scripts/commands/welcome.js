@@ -1,6 +1,6 @@
 module.exports.info = {
 	name: "welcome",
-    version: "1.0.1",
+    version: "1.0.2",
     permissions: 1,
     author: {
         name: "Henry",
@@ -42,7 +42,8 @@ module.exports.run = async function ({ args, event, api, Threads, Cherry }) {
                     .replace(/\{name}/g, "[Tên thành viên]")
                     .replace(/\{type}/g, "[Bạn/các bạn]")
                     .replace(/\{soThanhVien}/g, "[Số thành viên]")
-                    .replace(/\{threadName}/g, "[Tên nhóm]");
+                    .replace(/\{threadName}/g, "[Tên nhóm]")
+                    .replace(/\{prefix}/g, "[prefix]");
                     return api.sendMessage(body, threadID);
                 });
             }

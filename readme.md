@@ -9,7 +9,7 @@
 <details open="open">
     <summary>Menu</summary>
     <ol>
-        <li><a href="#Log">Log</a></li>
+        <li><a href="https://github.com/hoahenry/Cherry-Data/blob/main/notifications.md">Thông báo</a></li>
         <li><a href="#Install">Hướng dẫn cài đặt</a></li>
         <li><a href="#License">License</a></li>
         <li><a href="#Contact">Contact</a></li>
@@ -17,31 +17,6 @@
     </ol>
 </details>
 
-<!-- Log -->
-## Log
-
-<details open="close">
-    <sumary>Version 3.0.0</sumary>
-    ```sh
-    - Cherry - Super Ban: Lệnh cấm sử dụng Bot.
-    - Testmode: Chể độ này chỉ người quản lí Bot (ADMIN) mới được sử dụng.
-    - Fix delay khi sử dụng lệnh lúc mới start Bot.
-    - Sửa lệnh offbox thành busy và sửa lỗi xử lí sự kiện.
-    - Thay đổi một số biến, function cần thiết.
-    - Thêm check update: Bạn không cần phải kiểm tra thủ công về việc có phiên bản mới hay chưa, từ giờ nếu có bản cập nhật, bạn sẽ nhận được thông báo.
-    - Bổ sung thêm một số lệnh: load, unload, allin, sinhnhat...
-    - Thêm Purchase command: Nếu bạn muốn Bot của mình có thêm lệnh, bạn có thể kiểm tra danh sách lệnh được đăng bán bằng lệnh "buy".
-    - More fix...
-    ```
-    <sumary>Version 2.0.0</sumary>
-    ```sh
-    - Fix database, command
-    ```
-    <sumary>Version 1.0.0</sumary>
-    ```sh
-    The beginning of Cherry
-    ```
-    
 <!-- Install -->
 ## Install
 
@@ -64,48 +39,8 @@
      npm start
      ```
 - Video Hướng Dẫn: [Official Chanel](https://youtu.be/4OzPMrN-qC4)
-##### Mobile
-
-###### Android
-- Tải và cài đặt [Termux](https://f-droid.org/repo/com.termux_117.apk)
-- QuickEdit: [Tại Đây](https://play.google.com/store/apps/details?id=com.rhmsoft.edit&hl=vi&gl=US)
-- KiwiBrowser: [Tại Đây](https://play.google.com/store/apps/details?id=com.kiwibrowser.browser&hl=vi&gl=US)
-- C3C State: [Tại Đây](https://github.com/c3cbot/c3c-fbstate/releases/download/1.0/c3c-fbstate-extractor.crx)
-
-- Các lệnh cần thiết (Sắp xếp theo thứ tự rồi nhé, cứ copy vậy mà dán, không cần tách ra như video):
-    ```sh
-    pkg install git && pkg install nodejs
-    ```
-    ```sh
-    termux-setup-storage
-    ```
-    ```sh
-    apt update && apt upgrade
-    ```
-    ```sh
-    cd /sdcard
-    ```
-    ```sh
-    git clone https://github.com/hoahenry/Cherry
-    ```
-    ```sh
-    cd $home
-    ```
-    ```sh
-    mv /sdcard/Cherry ~
-    ```
-    ```sh
-    cd ./Cherry
-    ```
-    ```sh
-    npm i
-    ```
-    ```sh
-    npm start
-    ```
-- Video Hướng Dẫn: Coming soon...
-##### IOS
-- Chưa có điều kiện
+##### Replit
+- Video: coming soon...
 
 <!-- License -->
 ## License

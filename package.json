@@ -1,6 +1,6 @@
 {
   "name": "cherrybot",
-  "version": "4.0.0",
+  "version": "4.1.0",
   "description": "A simple bot for facebook messenger",
   "main": "cherry.js",
   "scripts": {
@@ -32,8 +32,6 @@
     "fs-extra": "^10.0.1",
     "moment-timezone": "",
     "semver": "",
-    "simple-youtube-api": "^5.2.1",
-    "string-similarity": "",
-    "ytdl-core": "^4.11.0"
+    "string-similarity": ""
   }
 }

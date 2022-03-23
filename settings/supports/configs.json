@@ -12,10 +12,10 @@
     "commandsDisabled": [],
     "eventsDisabled": [],
     "BOTNAME": "Cherry Bot - Created by Henry",
-    "prefix": "-",
-    "BotSystem": "4127643970650750",
+    "prefix": "#",
+    "BotSystem": "ID nhóm test bot nếu có",
     "ADMIN": [
-        "100005548624106"
+        "ID của bạn"
     ],
     "GC": {
         "status": false,
@@ -23,7 +23,7 @@
     },
     "resend": {
         "status": true,
-        "ID": "4127643970650750",
+        "ID": "ID nhóm Bot sẽ gửi tin nhắn mà thàh viên gỡ vào",
         "banned": []
     },
     "optionsLogin": {

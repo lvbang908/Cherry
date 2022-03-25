@@ -102,6 +102,7 @@ module.exports.run = async function({ api, event, args, Cherry, Users, prefix })
             cancelMatch({ api, threadID, messageID, senderID, Cherry, prefix, Users });
             break;
         case "report":
+		return api.sendMessage(`Report mode coming soon...`, threadID, messageID);
             reportStranger({ api, Cherry, threadID, messageID, args });
             break;
         default:

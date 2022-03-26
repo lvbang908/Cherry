@@ -1,6 +1,6 @@
 module.exports.info = {
 	name: "botinfo",
-	version: "1.0.1",
+	version: "1.0.2",
 	permissions: 1,
 	author: {
 		name: "Henry",
@@ -55,7 +55,7 @@ module.exports.run = async function({ api, event, multiple, Cherry, Threads }) {
 	var severInfo = handleOS(ping);
 	var msg = `======= Cherry Infomations =======\n\nBắt Đầu Hoạt Động: ${timeStart.fullTime}.\nĐã Hoạt Động:${hours < 10 ? (hours > 0 ? " 0" + hours + " giờ" : "") : (hours > 0 ? " " + hours + " giờ" : "")} ${minutes < 10 ? (minutes > 0 ? " 0" + minutes + " phút" : "") : (minutes > 0 ? " " + minutes + " phút" : "")}${seconds < 10 ? (seconds > 0 ? " 0" + seconds + " giây." : "") : (seconds > 0 ? " " + seconds + " giây." : "")}\n\n` +
 	`Tổng Nhóm: ${multiple.allThreadsInfo.size} nhóm.\nTổng Người Dùng: ${multiple.allUsersInfo.size} người.\n` + 
-	`Tổng Số Lệnh: ${multiple.allCommands.size - multiple.commandsHide.length}\n\n` + 
+	`Tổng Số Lệnh: ${multiple.commands.size - multiple.commandsHide.length}\n\n` + 
 	`Prefix tổng: ${Cherry.configs.prefix}\nPrefix của Box: ${prefix}\n\n${severInfo ? severInfo : `Ping: ${Date.now() - ping}ms.`}`
     return api.sendMessage(msg, event.threadID, (error, info) => { Cherry.autoUnsend(info.messageID, 1200000) },event.messageID);
 }

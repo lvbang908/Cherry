@@ -40,7 +40,7 @@
      ```
 - Video Hướng Dẫn: [Official Chanel](https://youtu.be/4OzPMrN-qC4)
 ##### Replit
-- Video: coming soon...
+- Video Hướng Dẫn: [Official Chanel](https://www.youtube.com/watch?v=BjTJPEk2Mq0)
 
 <!-- License -->
 ## License

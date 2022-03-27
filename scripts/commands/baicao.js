@@ -87,11 +87,11 @@ module.exports.handleEvents = async ({ event, api, Users, Others, Cherry }) => {
 				ranking.push(`${num++} • ${name} với ${info.card1} | ${info.card2} | ${info.card3} => ${info.tong} điểm\n`);
 			}
 
-			var money = data.dCoin * player.length;
+			var coin = data.dCoin * player.length;
 			var info = await Others.getData(player[0].id);
-			info.money = info.money + money;
+			info.coin = info.coin + coin;
 			await Others.setData(player[0].id, info);
-			ranking.push(` ${winPlayer} với ${player[0].tong} nút nhận được ${money}$\n`);
+			ranking.push(` ${winPlayer} với ${player[0].tong} nút nhận được ${coin}$\n`);
 
 			Cherry.baicao.delete(threadID);
 			return api.sendMessage(`Kết quả:\n\n ${ranking.join("\n")}`, threadID);
@@ -130,15 +130,15 @@ module.exports.run = async ({ api, event, Others, args, Users, Threads, Cherry }
 	    case "-j": {
 			var name = (await Users.getData(senderID)).name;
             if ( data.start == 1 ) return api.sendMessage("Hiện tại bàn đã được bắt đầu bởi chủ bàn", threadID, messageID);
-			var senderCoin = (await Others.getData(senderID)).money;
+			var senderCoin = (await Others.getData(senderID)).coin;
             if ( typeof data.player == "undefined" ) { 
                 if ( typeof senderCoin == "undefined" || senderCoin < 1000 ) return api.sendMessage("Bạn quá nghèo để khởi tạo bàn bài cào!", threadID, messageID);
-                Cherry.baicao.set( event.threadID, { "author": senderID, "maxCoin": senderCoin, "dCoin": 0, "start": 0, "chiabai": 0, "ready": 0, player: [ { "id": senderID, "money": senderCoin,  "card1": 0, "card2": 0, "card3": 0, "doibai": 2, "ready": false } ]} );
+                Cherry.baicao.set( event.threadID, { "author": senderID, "maxCoin": senderCoin, "dCoin": 0, "start": 0, "chiabai": 0, "ready": 0, player: [ { "id": senderID, "coin": senderCoin,  "card1": 0, "card2": 0, "card3": 0, "doibai": 2, "ready": false } ]} );
 				return api.sendMessage(`Hãy tham gia bàn bài cào nào mọi người.\n\nTham gia, nhập ${prefixThread ? prefixThread : CherryPrefix}baicao join\nCược số tiền, nhập ${prefixThread ? prefixThread : CherryPrefix}baicao create <coins>`, threadID, messageID);
             }
             if ( data.player.find(item => item.id == senderID) ) return api.sendMessage("Bạn đã tham gia vào bàn bài cào này!", threadID, messageID);
             if ( typeof senderCoin == "undefined" || senderCoin < 1000 ) return api.sendMessage("Bạn quá nghèo để tham gia vào bàn bài cào này!", threadID, messageID);
-            data.player.push({ "id": senderID, "money": senderCoin,  "card1": 0, "card2": 0, "card3": 0, "doibai": 2, "ready": false });
+            data.player.push({ "id": senderID, "coin": senderCoin,  "card1": 0, "card2": 0, "card3": 0, "doibai": 2, "ready": false });
             if ( senderCoin < data.maxCoin ) data.maxCoin = senderCoin
             Cherry.baicao.set(threadID, data);
             return api.sendMessage(`${name} đã tham gia bàn bài cào này!\nSố tiền cao nhất được phép cược hiện tại là ${data.maxCoin}$`, threadID, messageID); 
@@ -171,7 +171,7 @@ module.exports.run = async ({ api, event, Others, args, Users, Threads, Cherry }
             data.dCoin = parseInt(args[1])
             for (var user of data.player ) {
 				var userInfo = await Others.getData(user.id);
-				userInfo.money = userInfo.money - data.dCoin;
+				userInfo.coin = userInfo.coin - data.dCoin;
 				await Others.setData(user.id, userInfo);
             }
 			return api.sendMessage(`\n» Đặt cược ${args[1]}$ thành công! «\n\n👉Để bắt đầu cuộc chơi, nhập \"chia bài\"`, threadID, messageID);

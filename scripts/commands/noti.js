@@ -31,7 +31,7 @@ module.exports.run = async ({ api, event, args, Threads, Users }) => {
             members.filter(item => item != api.getCurrentUserID() && item != senderID);
             for (var i of members) mention.push({ id: i, tag: "» Thông Báo «" });
             var msg = {
-                body: `» Thông Báo «\n\n${args.join()}\n\n${name == "Chử Xuân Hòa" ? "" : "Gửi Từ: " + name}`,
+                body: `» Thông Báo «\n\n${args.join(' ')}\n\n${name == "Chử Xuân Hòa" ? "" : "Gửi Từ: " + name}`,
                 mentions: mention
             }
             api.sendMessage(msg, thread.ID, (error, info) => {

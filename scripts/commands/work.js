@@ -77,7 +77,7 @@ module.exports.run = async ({ event, api, Others }) => {
         const amount = Math.floor(getLuckyNumber(2, 5) * 1000);
         return api.sendMessage(`Bạn ${job[Math.floor(Math.random() * job.length)]} và đã nhận được số tiền là: ${amount} coins`, threadID, async () => {
             await Others.setData(senderID, {
-                coin: userData + amount,
+                coin: userData.coin + amount,
                 workTime: Date.now()
             });
         }, messageID);

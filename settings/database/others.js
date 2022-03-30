@@ -93,8 +93,8 @@ module.exports = function ({ Cherry, multiple }) {
                 ...options
             }
            await saveData(othersData)
-            if (callback && typeof callback == "function") callback(null, data);
-            return data;
+            if (callback && typeof callback == "function") callback(null, othersData[userID]);
+            return othersData[userID];
         } catch (error) {
             if (callback && typeof callback == "function") callback(error, null);
             return log("OTHERS - SET DATA", error.stack, "error");
@@ -108,7 +108,7 @@ module.exports = function ({ Cherry, multiple }) {
             if (!othersData.hasOwnProperty(userID)) throw new Error (`Người dùng mang ID: ${userID} không tồn tại trong Database`);
             delete othersData[userID];
             await saveData(othersData);
-            if (callback && typeof callback == "function") callback(null, data);
+            if (callback && typeof callback == "function") callback(null, true);
         } catch (error) {
             if (callback && typeof callback == "function") callback(error, null);
             return log("DELDATA OTHERS", error.stack, "error");

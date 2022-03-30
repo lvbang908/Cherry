@@ -1,6 +1,6 @@
 module.exports.info = {
 	name: "daigia",
-	version: "1.0.2",
+	version: "1.0.3",
 	permissions: 1,
 	author: {
 		name: "Henry",
@@ -52,7 +52,7 @@ module.exports.run = async function ({ args, api, event, Others, Users, Cherry, 
         return api.sendMessage(msg, threadID, messageID);
     } else {
         for (var i of Object.keys(members)) {
-            var { coin } = await Others.getData(i.ID);
+            var { coin } = await Others.getData(i);
             allDaiGia.push({"ID": i, "coin": coin});
         }
         allDaiGia.sort((a, b) => b.coin - a.coin);

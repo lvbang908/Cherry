@@ -38,7 +38,7 @@ module.exports.run = async function ({ args, api, event, Others, Users, Cherry, 
 		for (var i of Object.keys(members)) {
             var { coin } = await Others.getData(i);
             var { name } = await Users.getData(i.ID);
-            allInfo.push({"ID": i, "coin": coin, "name": name})
+            allDaiGia.push({"ID": i, "coin": coin, "name": name})
         }
         allDaiGia.sort((a, b) => b.coin - a.coin);
         for (const lastData of allDaiGia) {
@@ -51,7 +51,10 @@ module.exports.run = async function ({ args, api, event, Others, Users, Cherry, 
 		}
         return api.sendMessage(msg, threadID, messageID);
     } else {
-        for (var i of Object.keys(members)) allDaiGia.push({"ID": i, "coin": i.coin});
+        for (var i of Object.keys(members)) {
+            var { coin } = await Others.getData(i.ID);
+            allDaiGia.push({"ID": i, "coin": coin});
+        }
         allDaiGia.sort((a, b) => b.coin - a.coin);
         for (const lastData of allDaiGia) {
             number++;

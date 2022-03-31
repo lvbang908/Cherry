@@ -20,7 +20,7 @@ module.exports.info = {
 module.exports.run = async function({ api, event, args, Others }) {
     var { messageID, threadID, senderID } = event;
     var listThreadBanned = ['2392402354140014', '4115747231847743', '6130616870282577', '3402498063192680', '5930840416989874']
-    if (listThreadBanned.includes(threadID)) return api.sendMessage('Bạn không được phép chơi MiniGame ở box chính, vui lòng gửi "#cobac" và chọn box cờ bạc muốn vào.', threadID, messageID);
+    if (listThreadBanned.includes(threadID)) return api.sendMessage('Bạn không được phép chơi MiniGame ở box chính, vui lòng gửi "#join" và chọn box cờ bạc muốn vào.', threadID, messageID);
     const slotItems = ["🍇", "🍉", "🍊", "🍏", "7⃣", "🍓", "🍒", "🍌", "🥝", "🥑", "🌽"];
     const userData = await Others.getData(senderID);
     var moneyBet = parseInt(args[0]);

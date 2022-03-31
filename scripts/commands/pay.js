@@ -19,10 +19,10 @@ module.exports.info = {
 
 module.exports.run = async({ event, api, args, Others }) => {
     var { senderID, threadID, messageID, mentions } = event;
-    const senderMoney = (await Others.getData(senderID)).money;
+    const senderMoney = (await Others.getData(senderID)).coin;
     var mention = Object.keys(mentions);
     if (mention.length == 0) return api.sendMessage("Bạn cần tag người nhận tiền.", threadID);
-    var mentionMoney = (await Others.getData(mention)).money;
+    var mentionMoney = (await Others.getData(mention)).coin;
     var moneyPay = parseInt(args[args.length - 1]);
     let Ry = parseInt('100005548624106');
 

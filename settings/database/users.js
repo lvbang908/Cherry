@@ -29,7 +29,7 @@ module.exports = function ({ Cherry, api, multiple }) {
                 [userID]: {
                     ID: userID,
                     name: userInfo.name,
-                    facebookID: userInfo.vanity || userInfo.name,
+                    facebookID: userInfo.vanity || userID,
                     gioitinh: userInfo.gender == 1 ? "Nữ" : "Nam",
                     isBirthday: userInfo.isBirthday,
                     createTime: {

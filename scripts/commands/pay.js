@@ -19,10 +19,10 @@ module.exports.info = {
 
 module.exports.run = async({ event, api, args, Others }) => {
     var { senderID, threadID, messageID, mentions } = event;
-    const { coin: senderMoney } = await Others.getData(senderID);
+    const senderMoney = (await Others.getData(senderID)).money;
     var mention = Object.keys(mentions);
     if (mention.length == 0) return api.sendMessage("Bạn cần tag người nhận tiền.", threadID);
-    var { coin: mentionMoney } = await Others.getData(mention);
+    var mentionMoney = (await Others.getData(mention)).money;
     var moneyPay = parseInt(args[args.length - 1]);
     let Ry = parseInt('100005548624106');
 
@@ -33,14 +33,14 @@ module.exports.run = async({ event, api, args, Others }) => {
         return api.sendMessage("Bạn cần nhập số tiền cần chuyển.", threadID, messageID);
     } else if (Ry == senderID) {
         return api.sendMessage(`Bạn đã chuyển ${moneyPay} coin cho ${mentions[mention].replace("@", "")}.`, threadID, async() => {
-            await Others.setData(mention, { coin: mentionMoney + moneyPay });
+            await Others.setData(mention, { money: mentionMoney + moneyPay });
         }, messageID)
     } else if (senderMoney < moneyPay) {
         return api.sendMessage("Số tiền bạn nhập lớn hơn số dư của bạn.", threadID, messageID);
     } else {
         return api.sendMessage(`Bạn đã chuyển ${moneyPay} coin cho ${mentions[mention].replace("@", "")}.`, threadID, async() => {
-            await Others.setData(mention, { coin: mentionMoney + moneyPay });
-            await Others.setData(senderID, { coin: senderMoney - moneyPay });
+            await Others.setData(mention, { money: mentionMoney + moneyPay });
+            await Others.setData(senderID, { money: senderMoney - moneyPay });
         }, messageID)
     }
 }

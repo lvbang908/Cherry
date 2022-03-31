@@ -1,6 +1,6 @@
 module.exports.info = {
 	name: "daigia",
-	version: "1.0.3",
+	version: "1.0.2",
 	permissions: 1,
 	author: {
 		name: "Henry",

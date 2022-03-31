@@ -22,7 +22,7 @@ module.exports.info = {
 	}
 };
 
-module.exports.handleMessageReply = async function({ api, event, Reply }) {
+module.exports.handleMessageReply = async function({ api, event, Reply, Cherry }) {
 	if (isNaN(event.body)) return api.unsendMessage(Reply.messageID);
 	if (Reply.author != event.senderID) return api.sendMessage('Ê mạy. Chọn bài nào thì tự kiếm chứ tranh của người khác thế à?', event.threadID, event.messageID);
 	const ytdl = require("ytdl-core");

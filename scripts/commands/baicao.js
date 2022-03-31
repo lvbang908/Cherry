@@ -1,6 +1,6 @@
 module.exports.info = {
 	name: "baicao",
-	version: "1.0.0",
+	version: "1.0.1",
 	permissions: 1,
 	author: {
 		name: "Henry",
@@ -112,7 +112,7 @@ module.exports.handleEvents = async ({ event, api, Users, Others, Cherry }) => {
 	}
 }
 
-module.exports.run = async ({ api, event, Others, args, Users, Threads, Cherry }) => {
+module.exports.run = async ({ api, event, Others, args, Users, Threads, Cherry, permission }) => {
 	var { senderID, threadID, messageID } = event;
 
 	threadID = String(threadID);
@@ -179,6 +179,7 @@ module.exports.run = async ({ api, event, Others, args, Users, Threads, Cherry }
 
         case "cancel":
         case "-x": {
+            if ( senderID != data.author ) return api.sendMessage("Bạn không phải người tạo bàn mới có thể hủy bàn", threadID, messageID);
             if ( typeof data.player == "undefined" ) return api.sendMessage(`Hiện tại chưa có bàn bài cào nào hay một cuộc hẹn được diễn ra, gõ ${prefixThread ? prefixThread : CherryPrefix}help baicao để tìm hiểu thêm`, threadID, messageID);
             Cherry.baicao.delete(threadID);
             return api.sendMessage("Đã huỷ bàn bài cào!", threadID, messageID);

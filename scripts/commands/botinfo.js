@@ -1,6 +1,6 @@
 module.exports.info = {
 	name: "botinfo",
-	version: "1.0.2",
+	version: "1.0.1",
 	permissions: 1,
 	author: {
 		name: "Henry",

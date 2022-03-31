@@ -19,7 +19,7 @@ module.exports = function ({ Cherry, api, multiple }) {
         }
     }
 
-	async function createData(threadID, userID, callback) {
+	async function createData(threadID, callback) {
 		try {
             if (!threadID) throw new Error("threadID không được để trống");
             if (isNaN(threadID)) throw new Error("threadID không hợp lệ");

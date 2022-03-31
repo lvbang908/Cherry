@@ -1,7 +1,7 @@
 {
     "devMode": true,
     "testMode": false,
-    "allowInbox": false,
+    "allowInbox": true,
     "refreshDatabase": {
         "status": true,
         "timeToRefresh": {
@@ -13,9 +13,9 @@
     "eventsDisabled": [],
     "BOTNAME": "Cherry Bot - Created by Henry",
     "prefix": "#",
-    "BotSystem": "ID nhóm test bot nếu có",
+    "BotSystem": "4127643970650750",
     "ADMIN": [
-        "ID của bạn"
+        "100005548624106"
     ],
     "GC": {
         "status": false,
@@ -23,12 +23,12 @@
     },
     "resend": {
         "status": true,
-        "ID": "ID nhóm Bot sẽ gửi tin nhắn mà thàh viên gỡ vào",
+        "ID": "4127643970650750",
         "banned": []
     },
     "optionsLogin": {
         "forceLogin": true,
-        "autoMarkRead": true,
+        "autoMarkRead": false,
         "listenEvents": true,
         "selfListen": true
     }

@@ -1,6 +1,6 @@
 {
   "name": "cherrybot",
-  "version": "4.1.1",
+  "version": "4.2.1",
   "description": "A simple bot for facebook messenger",
   "main": "cherry.js",
   "scripts": {
@@ -28,6 +28,7 @@
   "dependencies": {
     "axios": "^0.26.1",
     "child_process": "^1.0.2",
+    "express": "^4.17.3",
     "fca-cherry": "https://github.com/hoahenry/fca-cherry",
     "fs-extra": "^10.0.1",
     "moment-timezone": "",

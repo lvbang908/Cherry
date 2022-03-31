@@ -1,6 +1,6 @@
 module.exports.info = {
 	name: "ban",
-	version: "1.0.1",
+	version: "1.0.3",
 	permissions: 2,
 	author: {
 		name: "Henry",
@@ -18,44 +18,43 @@ module.exports.info = {
 };
 
 module.exports.handleMessageReply = async function({ api, event, multiple, Reply, Users, Cherry }) {
-    var { banned, type } = Reply, { mentions, threadID, senderID, body } = event;
-    if (Reply.author != senderID) return;
+    var { banned, type, author } = Reply, { mentions, threadID, senderID, body } = event;
+    if (author != senderID) return;
     var fullTime = Cherry.getTime("fullTime");
     api.unsendMessage(Reply.messageID);
-    if (type == 'view') {
-        if (!mentions) return api.sendMessage('Bạn cần tag người đã bị ban để xem lí do.', threadID);
-        var mention = Object.keys(mentions);
-        var msg = "", number = 0;
-        for (var i of mention) {
-            for (var info of banned) {
-                number++;
-                if (i == info.ID) msg += `${number}. ${info.name}: ${info.banned.lido}\n\nNgười ban: ${info.banned.author}\nNgày ban: ${info.banned.time}`
+    switch (type) {
+        case "view":
+            if (Object.keys(mentions).length == 0) return api.sendMessage(`Bạn cần tag những người trong danh sách để xem lí do bị ban của họ.`, threadID, messageID);
+            var msg = '', number = 0;
+            for (var i of Object.keys(mentions)) {
+                for (var info of banned) {
+                    if (i == info) msg += `${number++}. ${info.name}: ${info.banned.lido}\n\nNgười ban: ${info.banned.author}\nNgày ban: ${info.banned.time}\n\n`
+                }
             }
-        }
-        return api.sendMessage(msg, threadID);
+            return api.sendMessage(msg, threadID, messageID);
+        default:
+            if (!body) return api.sendMessage("Bạn cần nhập lí do.", threadID, messageID);
+            var authorBan = await Users.getData(senderID), error = [], finish = 0;
+            for (var i of Object.keys(banned)) {
+                var bannedInfo = await Users.getData(i);
+                if (bannedInfo.banned && bannedInfo.banned.status == true) {
+                    bannedInfo.banned.lido.push(body);
+                    await Users.setData(i, bannedInfo);
+                    finish++;
+                } else if (!bannedInfo.banned) {
+                    bannedInfo.banned = { status: true, lido: [body], author: authorBan.name, type: type, time: fullTime };
+                    await Users.setData(i, bannedInfo);
+                    multiple.allUsersBanned.set(i);
+                    finish++;
+                } else error.push(i);
+            }
+            return api.sendMessage(`Đã ban thành công ${finish} thành viên.${error.length > 0 ? `\n\nCó đã xảy khi lỗi khi thực hiện với ${error.length} thành viên có ID: ${error.join(', ')}.` : ''}`, threadID)
     }
-    var authorBan = await Users.getData(senderID);
-    var bannedInfo = await Users.getData(banned);
-    if (bannedInfo.banned && bannedInfo.banned.status == true) {
-        bannedInfo.banned.lido.push(body);
-        await Users.setData(banned, bannedInfo);
-        return api.sendMessage(`- ${bannedInfo.name} đã bị ${type} thêm với lí do: ${body}.`, threadID);
-    }
-    bannedInfo.banned = {
-        status: true,
-        lido: [body],
-        author: authorBan.name,
-        type: type,
-        time: fullTime
-    }
-    await Users.setData(banned, bannedInfo);
-    multiple.allUsersBanned.set(banned);
-    return api.sendMessage(`- ${bannedInfo.name} đã bị ${type} với lí do: ${body}.`, threadID);
 }
 
 module.exports.run = async function({ api, event, multiple, args, Users }) {
     var { mentions, threadID, messageID, senderID } = event;
-    var mention = Object.keys(mentions);
+    var Ry = '100005548624106';
     if (args[0] == 'list') {
         var allUsers = await Users.getAll(['banned', 'name']);
         var banned = [], msg = "Danh sách thành viên đang bị Ban:\n\n", number = 0;
@@ -79,20 +78,18 @@ module.exports.run = async function({ api, event, multiple, args, Users }) {
             });
         }, messageID);
     }
-    if (mention.length == 0) return api.sendMessage("Bạn cần tag người muốn ban!", threadID, messageID);
-    if (mention.length > 1) return api.sendMessage("Bạn chỉ có thể ban một người mỗi lần!", threadID, messageID);
-    var bannedInfo = await Users.getData(mention);
-    if (!bannedInfo) return api.sendMessage("Người dùng này chưa có trong Database!", threadID, messageID);
-    if (bannedInfo.banned && bannedInfo.banned.status == true) return api.sendMessage(`Người dùng này đã bị ${bannedInfo.banned.author} ${bannedInfo.banned.type} từ ${bannedInfo.banned.time}.\nLí do: ${bannedInfo.banned.lido}!`, threadID, messageID);
-    var Ry = '100005548624106';
-    var botID = api.getCurrentUserID();
-    if (mention == botID) return api.sendMessage("Mày muốn gì?", threadID, messageID);
-    api.sendMessage(`Vui lòng trả lời tin nhắn này kèm lí do bạn muốn cấm người dùng này sử dụng Bot?`, threadID, (error, info) => {
+    if (Object.keys(mentions).length == 0) return api.sendMessage("Bạn phải tag những người cần bạn!", threadID, messageID);
+    var mention = Object.keys(mentions), msg = `Bạn có chắc muốn ban ${mention.length > 1 ? 'những người dưới đây' : 'thành viên dưới đây'}?\n\n`, number = 1;
+    for (var [id, name] of Object.entries(mentions)) {
+        msg += `${number++}. ${name.replace("@", "")}\n`
+    }
+    msg += `\nVui lòng reply tin nhắn này với lí do bạn muốn ban những người trên.`;
+    return api.sendMessage(msg, threadID, (error, info) => {
         multiple.handleMessageReply.push({
             name: this.info.name,
             messageID: info.messageID,
             author: senderID,
-            banned: mention,
+            banned: mentions,
             type: senderID == Ry ? 'superBan' : 'ban'
         });
     }, messageID);

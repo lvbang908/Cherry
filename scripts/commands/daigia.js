@@ -18,14 +18,13 @@ module.exports.info = {
 };
 
 module.exports.run = async function ({ args, api, event, Others, Users, Cherry, Threads }) {
-    var { threadID, senderID, messageID } = event;
-    var mention = Object.keys(event.mentions);
+    var { threadID, senderID, messageID, mentions } = event;
     var { members } = await Threads.getData(threadID);
     var msg = "", number = 0, allDaiGia = [];
 	if (args[0] == "all") {
 		for (var i of Object.keys(members)) {
             var { coin } = await Others.getData(i);
-            var { name } = await Users.getData(i.ID);
+            var { name } = await Users.getData(i);
             allDaiGia.push({"ID": i, "coin": coin, "name": name})
         }
         allDaiGia.sort((a, b) => b.coin - a.coin);
@@ -34,21 +33,21 @@ module.exports.run = async function ({ args, api, event, Others, Users, Cherry, 
             msg += `Hạng ${number}. ${lastData.name} với ${lastData.coin} coin.\n`;
         }
         return api.sendMessage(msg, threadID, (error, info) => { Cherry.autoUnsend(info.messageID, 120000) }, messageID);
-	} else if (mention[0]) {
+	} else if (Object.keys(mentions).length > 0) {
 		for (var i of Object.keys(members)) {
             var { coin } = await Others.getData(i);
-            var { name } = await Users.getData(i.ID);
+            var { name } = await Users.getData(i);
             allDaiGia.push({"ID": i, "coin": coin, "name": name})
         }
         allDaiGia.sort((a, b) => b.coin - a.coin);
+        mentions = Object.keys(mentions);
+        console.log(mentions)
         for (const lastData of allDaiGia) {
             number++;
-			for (var i of mention) {
-				if (lastData.ID == i) {
-                    msg += `- ${lastData.name} đứng hạng ${number} với ${lastData.coin} coin.\n`;
-                }
-			}
+            if (mentions.includes(lastData.ID)) msg += `- ${lastData.name} đứng hạng ${number} với ${lastData.coin} coin.\n`;
+            else continue;
 		}
+        console.log(msg)
         return api.sendMessage(msg, threadID, messageID);
     } else {
         for (var i of Object.keys(members)) {

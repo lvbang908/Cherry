@@ -18,12 +18,14 @@ module.exports.info = {
 };
 
 module.exports.run = async function({ api, event, args }) {
-	const name = args.join(" "), { threadID, senderID, mentions } = event;
-	const mention = mentions;
-	if (!mention) return api.changeNickname(`${name}`, threadID, senderID);
-    for (var i of Object.keys(mention)) {
-        setTimeout(() => {
-            api.changeNickname(`${name}`, threadID, i)
-        }, 1500);
+	const { threadID, senderID, mentions } = event, ID = [];
+	if (!mentions) return api.changeNickname(`${name}`, threadID, senderID);
+    for (var [id, name] of Object.entries(mentions)) {
+        ID.push(id)
+        args.filter(item => item != name);
     }
+    var nickname = args.join(" ")
+    for (var i of ID) setTimeout(() => {
+        api.changeNickname(`${nickname}`, threadID, i)
+    }, 1000)
 }

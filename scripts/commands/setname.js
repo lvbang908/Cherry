@@ -19,13 +19,16 @@ module.exports.info = {
 
 module.exports.run = async function({ api, event, args }) {
 	const { threadID, senderID, mentions } = event, ID = [];
-	if (!mentions) return api.changeNickname(`${name}`, threadID, senderID);
+	if (!mentions) {
+        var name = args.join(" ")
+        return api.changeNickname(name, threadID, senderID);
+    }
     for (var [id, name] of Object.entries(mentions)) {
         ID.push(id)
-        args.filter(item => item != name);
+        args = args.filter(item => item != name);
     }
-    var nickname = args.join(" ")
-    for (var i of ID) setTimeout(() => {
-        api.changeNickname(`${nickname}`, threadID, i)
-    }, 1000)
+    var nickname = args.join(" ");
+    for (var i of ID) {
+        api.changeNickname(nickname, threadID, i)
+    }
 }

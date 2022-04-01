@@ -43,7 +43,8 @@ module.exports.run = async function ({ args, event, api, Threads, Cherry }) {
                     .replace(/\{type}/g, "[Bạn/các bạn]")
                     .replace(/\{soThanhVien}/g, "[Số thành viên]")
                     .replace(/\{threadName}/g, "[Tên nhóm]")
-                    .replace(/\{prefix}/g, "[prefix]");
+                    .replace(/\{prefix}/g, "[prefix]"),
+                    .replace(/\{time}/g, "[Thời gian]");
                     return api.sendMessage(body, threadID);
                 });
             }

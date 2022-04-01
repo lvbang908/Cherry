@@ -2,7 +2,7 @@
 <h3 align="center">A simple Bot create by Henry (Ry #2052)</h3>
 
 <p align="center">
-    <a href="https://github.com/hoahenry/Cherry/issues">I'm have a Bug</a>
+    <a href="https://github.com/hoahenry/Cherry/issues">I'm have a Bug</a> - <a href="https://m.me/j/AbbQMwUPesGscPA4/">Join Group Cherry Bot</a>
     </p>
 </p>
 

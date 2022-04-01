@@ -44,7 +44,7 @@ module.exports.run = function({ api, event, args, Cherry, multiple }) {
         case "configs":
             try {
                 loadConfigs({ api, threadID, messageID, Cherry, multiple });
-                api.sendMessage(`Đã load xong file configs.\n\nThời Gian: ${Date.now() - ping}ms.`, threadID, messageID);
+                return api.sendMessage(`Đã load xong file configs.\n\nThời Gian: ${Date.now() - ping}ms.`, threadID, messageID);
             } catch (error) {
                 return api.sendMessage(`Đã xảy ra lỗi khi load file configs. Lỗi: ${error}`);
             }

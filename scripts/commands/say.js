@@ -30,7 +30,7 @@ module.exports.run = async function({ api, event, args, Cherry }) {
         var language = (["ru", "en", "ko", "ja", "cn", "la", "cu", "co"]).some(i => content.indexOf(i) == 0) ? content.slice(0, content.indexOf(" ")) : "vi";
 		var msg = language != "vi" ? content.slice(3, content.length) : content;
 		const path = resolve(__dirname, 'cache', `${threadID}_${senderID}.mp3`);
-		await Cherry.downloadFile(`https://translate.google.com/translate_tts?ie=UTF-8&q=${encodeURIComponent(msg)}&tl=${languageToSay}&client=tw-ob`, path);
+		await Cherry.downloadFile(`https://translate.google.com/translate_tts?ie=UTF-8&q=${encodeURIComponent(msg)}&tl=${language}&client=tw-ob`, path);
 		return api.sendMessage({ attachment: createReadStream(path)}, threadID, () => unlinkSync(path));
 	} catch (e) { return console.log(e) };
 }

@@ -20,18 +20,17 @@ module.exports.info = {
 module.exports.handleReactionMessage = async function({ api, event, Others, Users, Reaction }) {
     var { threadID, messageID, userID } = event;
     if (userID != Reaction.player || messageID != Reaction.messageID) return;
+    function getLuckyNumber(min, max) {
+        return Math.floor(Math.random() * (max - min) + min);
+    }
     var luckyNumber = getLuckyNumber(1000, 9999);
+    function getLucky() {
+        var Lucky = ['1234', '5678', '1111', '2222', '3333', '4444', '5555', '6666', '7777', '8888', '9999']
+        return Lucky[Math.floor(Math.random() * Lucky.length)];
+    }
     var lucky = getLucky();
     var name = (await Users.getData(Reaction.player)).name;
     return api.sendMessage(`Đang chuẩn bị bắt đầu trò chơi...`, threadID, () => {
-	    
-function getLucky() {
-    var Lucky = ['1234', '5678', '1111', '2222', '3333', '4444', '5555', '6666', '7777', '8888', '9999']
-    return Lucky[Math.floor(Math.random() * Lucky.length)];
-}
-function getLuckyNumber(min, max) {
-    return Math.floor(Math.random() * (max - min) + min);
-}
         var userInfo = Reaction.playerInfo;
         if (luckyNumber == lucky) {
             userInfo.coin = userInfo.coin * 10000;
@@ -44,10 +43,10 @@ function getLuckyNumber(min, max) {
     })
 }
 
-module.exports.run = async function({ api, event, Others, multiple }) {
+module.exports.run = async function({ api, event, Others, multiple, prefix }) {
     var { threadID, senderID, messageID } = event;
     var listThreadBanned = ['2392402354140014', '4115747231847743', '6130616870282577', '3402498063192680', '5930840416989874'];
-    if (listThreadBanned.includes(threadID)) return api.sendMessage('Bạn không được phép chơi MiniGame ở box chính, vui lòng gửi "#cobac" và chọn box cờ bạc muốn vào.', threadID, messageID);
+    if (listThreadBanned.includes(threadID)) return api.sendMessage(`Bạn không được phép chơi MiniGame ở box chính, vui lòng gửi "${prefix}join" và chọn box cờ bạc muốn vào.`, threadID, messageID);
     var userInfo = await Others.getData(senderID);
     if (userInfo.coin < 100000) return api.sendMessage("Số tiền của bạn không được dưới 100.000 để có thể chơi All-In", threadID)
     return api.sendMessage(`Bạn đang có ${userInfo.coin}, bạn có muốn chơi All-In không?\n\nThả cảm xúc vào tin nhắn này để đồng ý.`, threadID, (error, info) => {
@@ -57,5 +56,5 @@ module.exports.run = async function({ api, event, Others, multiple }) {
             player: senderID,
             playerInfo: userInfo
         })
-    }, messageID)
+    }, messageID);
 }

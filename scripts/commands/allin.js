@@ -17,14 +17,6 @@ module.exports.info = {
 	countdown: 5
 };
 
-function getLucky() {
-    var Lucky = ['1234', '5678', '1111', '2222', '3333', '4444', '5555', '6666', '7777', '8888', '9999']
-    return Lucky[Math.floor(Math.random() * Lucky.length)];
-}
-function getLuckyNumber(min, max) {
-    return Math.floor(Math.random() * (max - min) + min);
-}
-
 module.exports.handleReactionMessage = async function({ api, event, Others, Users, Reaction }) {
     var { threadID, messageID, userID } = event;
     if (userID != Reaction.player || messageID != Reaction.messageID) return;
@@ -32,6 +24,14 @@ module.exports.handleReactionMessage = async function({ api, event, Others, User
     var lucky = getLucky();
     var name = (await Users.getData(Reaction.player)).name;
     return api.sendMessage(`Đang chuẩn bị bắt đầu trò chơi...`, threadID, () => {
+	    
+function getLucky() {
+    var Lucky = ['1234', '5678', '1111', '2222', '3333', '4444', '5555', '6666', '7777', '8888', '9999']
+    return Lucky[Math.floor(Math.random() * Lucky.length)];
+}
+function getLuckyNumber(min, max) {
+    return Math.floor(Math.random() * (max - min) + min);
+}
         var userInfo = Reaction.playerInfo;
         if (luckyNumber == lucky) {
             userInfo.coin = userInfo.coin * 10000;

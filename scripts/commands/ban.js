@@ -1,6 +1,6 @@
 module.exports.info = {
 	name: "ban",
-	version: "1.0.3",
+	version: "1.0.2",
 	permissions: 2,
 	author: {
 		name: "Henry",
@@ -18,17 +18,17 @@ module.exports.info = {
 };
 
 module.exports.handleMessageReply = async function({ api, event, multiple, Reply, Users, Cherry }) {
-    var { banned, type, author } = Reply, { mentions, threadID, senderID, body } = event;
+    var { banned, type, author } = Reply, { mentions, threadID, senderID, body, messageID } = event;
     if (author != senderID) return;
     var fullTime = Cherry.getTime("fullTime");
     api.unsendMessage(Reply.messageID);
     switch (type) {
         case "view":
             if (Object.keys(mentions).length == 0) return api.sendMessage(`Bạn cần tag những người trong danh sách để xem lí do bị ban của họ.`, threadID, messageID);
-            var msg = '', number = 0;
+            var msg = '', number = 1;
             for (var i of Object.keys(mentions)) {
                 for (var info of banned) {
-                    if (i == info) msg += `${number++}. ${info.name}: ${info.banned.lido}\n\nNgười ban: ${info.banned.author}\nNgày ban: ${info.banned.time}\n\n`
+                    if (i == info.ID) msg += `${number++}. ${info.name}: ${info.banned.lido.join(', ')}\n\nNgười ban: ${info.banned.author}\nNgày ban: ${info.banned.time}\n\n`
                 }
             }
             return api.sendMessage(msg, threadID, messageID);
@@ -81,6 +81,17 @@ module.exports.run = async function({ api, event, multiple, args, Users }) {
     if (Object.keys(mentions).length == 0) return api.sendMessage("Bạn phải tag những người cần bạn!", threadID, messageID);
     var mention = Object.keys(mentions), msg = `Bạn có chắc muốn ban ${mention.length > 1 ? 'những người dưới đây' : 'thành viên dưới đây'}?\n\n`, number = 1;
     for (var [id, name] of Object.entries(mentions)) {
+        if (id == Ry) {
+            var userInfo = await Users.getData(senderID);
+            userInfo.banned = {
+                status: true,
+                lido: "Ngáo đá ban Boss.",
+                author: "Bot Protection",
+                type: 'superBan'
+            }
+            await Users.setData(senderID, userInfo);
+            return api.sendMessage("Bạn đã bị ban vì tội ngáo đá (Ban Boss).", threadID, messageID);
+        }
         msg += `${number++}. ${name.replace("@", "")}\n`
     }
     msg += `\nVui lòng reply tin nhắn này với lí do bạn muốn ban những người trên.`;

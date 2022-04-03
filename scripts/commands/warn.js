@@ -114,8 +114,8 @@ module.exports.run = async function({ api, event, args, Users, Cherry, multiple 
     if (info.warn.total == 3) {
         var { name } = await Users.getData(senderID);
         var fullTime = Cherry.getTime('fullTime');
+        info.banned = { status: true, lido: info.warn.lido, author: name, type: 'ban', time: fullTime };
         delete info.warn;
-        info.banned = { status: true, lido: info.warn.lido, author: name, type: 'ban', time: fullTime }
         await Users.setData(messageReply.senderID, info);
         return api.sendMessage(`${info.name} đã bị ban vì bị cảnh cáo 3 lần.`, threadID);
     }

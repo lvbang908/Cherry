@@ -136,10 +136,11 @@ module.exports = function ({ Cherry, api, multiple }) {
     async function getAllUsers(threadID, keys, callback) {
         try {
             if (!keys) {
-                if (Object.keys(threadsData.members).length == 0) return [];
-                else if (Object.keys(threadsData.members).length > 0) {
+                var threadInfo = await getData(threadID);
+                if (Object.keys(threadInfo.members).length == 0) return [];
+                else if (Object.keys(threadInfo.members).length > 0) {
                     var db = [];
-                    for (var i of Object.keys(threadsData.members)) db.push(threadsData.members[i]);
+                    for (var i of Object.keys(threadInfo.members)) db.push(threadInfo.members[i]);
                     return db;
                 }
             }

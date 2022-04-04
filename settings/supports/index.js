@@ -54,8 +54,12 @@ module.exports = function({ api, Cherry, multiple, Threads, Users, Others }) {
     }
     
     function calcTime(fullTime) {
-        var date1 = new Date(fullTime);
-        var date2 = new Date(Cherry.getTime('fullTime'));
+        fullTime = fullTime.match(/[0-9]{2}\/[0-9]{2}\/[0-9]{4}/);
+        fullTime = fullTime[0].replace(/\//g, " ").split(' ');
+        var date = fullTime[0], month = fullTime[1] - 1, year = fullTime[2];
+        var dateNow = Cherry.getTime('date'), monthNow = Cherry.getTime('month') - 1, yearNow = Cherry.getTime('year');
+        var date1 = new Date(year, month, date);
+        var date2 = new Date(yearNow, monthNow, dateNow);
         return parseInt((date2 - date1) / 86400000);
     }
 

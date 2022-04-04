@@ -30,19 +30,20 @@ module.exports.handleReactionMessage = async function({ api, event, Threads, Use
 module.exports.run = async function({ api, event, args, Users, Others, multiple }) {
     var { threadID, messageID, senderID } = event;
     var senderInfo = await Users.getData(senderID);
-    if (senderInfo.hasOwnProperty('dating') && senderInfo.dating.status == true) return api.sendMessage(`Muốn cắm sừng người ta hay sao? Đang ở chế độ Dating còn muốn tìm thêm người khác?`, threadID, messageID);
     var { coin } = await Others.getData(senderID);
     if (coin < 20000) return api.sendMessage(`Bạn không đủ tiền để thực hiện tìm kiếm một đối tượng mới.`, threadID, messageID);
-    var type = '';
+    var type = ''
     switch (args[0]) {
         case "Nam":
         case "nam":
+            if (senderInfo.hasOwnProperty('dating') && senderInfo.dating.status == true) return api.sendMessage(`Muốn cắm sừng người ta hay sao? Đang ở chế độ Dating còn muốn tìm thêm người khác?`, threadID, messageID);
             type = "Nam";
             break;
         case "Nữ":
         case "nữ":
         case "nu":
         case "Nu":
+            if (senderInfo.hasOwnProperty('dating') && senderInfo.dating.status == true) return api.sendMessage(`Muốn cắm sừng người ta hay sao? Đang ở chế độ Dating còn muốn tìm thêm người khác?`, threadID, messageID);
             type = "Nữ";
             break;
         case "breakup":

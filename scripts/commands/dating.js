@@ -17,6 +17,11 @@ module.exports.info = {
 	countdown: 5//1800000
 };
 
+function msgBreakup() {
+    var msg = ['Thật sự 2 người không thể làm lành được sao?', 'Cứ như vậy mà buông tay nhau?', 'Không đau sao? Có chứ? Vậy sao còn muốn buông?', 'Vì một lí do nào đó... 2 người có thể cố găng được không? ^^']
+    return msg[Math.floor(Math.random() * msg.length)];
+}
+
 function getMsg() {
   //Bạn có thể custom tin nhắn cuối cùng của Bot ở đây.
   //Tin nhắn này được gửi khi cả 2 người đều đã đồng ý.

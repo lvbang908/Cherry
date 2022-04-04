@@ -59,6 +59,16 @@ module.exports.run = async function({ api, event, args, Users, Others, multiple 
             return api.sendMessage(`Cả 2 người thật sự không thể tiếp tục được hay sao?\nNếu có đọc được dòng tin nhắn này, hãy cứ để nó đó... Yên lặng một chút, suy nghĩ cho kĩ đi nào ${userInfo.gioitinh == "Nam" ? "chàng trai" : "cô gái"}...\nCó nhiều thứ... Một khi đã mất đi rồi thì sẽ không thể tìm lại được đâu... ^^\n\nCòn nếu... Vẫn không thể tiếp tục được nữa... Cả 2 người hãy thả cảm xúc vào tin nhắn này nhé...`, threadID, (error, info) => {
                 multiple.handleReactionMessage.push({ name: this.info.name, messageID: info.messageID, userInfo: userInfo, userMates: userMates, turn: 'breakup', user_1: { ID: senderID, accept: false }, user_2: { ID: userMates.ID, accept: false } })
             }, messageID);
+        case "info":
+            var userInfo = await Users.getData(senderID);
+            if (!userInfo.hasOwnProperty('dating') || userInfo.hasOwnProperty('dating') && userInfo.dating.status == false) return api.sendMessage(`Đang ế lòi mồm ra đòi xem thông tin gì vậy?`, threadID, messageID);
+            var infoMates = await Users.getData(userInfo.dating.mates);
+            var msg = `<3 Dating Info - Life Of Love\n\n` +
+            `Tên Của Bạn: ${userInfo.name}\n` +
+            `Tên Của Người Ấy: ${infoMates.name}\n` +
+            `Thời Gian Bắt Đầu: ${userInfo.dating.time.fullTime}\n` +
+            `Đã Bên Nhau: ${Cherry.calcTime(userInfo.dating.time.fullTime)} ngày\n`
+            return api.sendMessage(msg, threadID, messageID);
         default:
             return api.sendMessage(`Bạn cần nhập giới tính của đối tượng mà bạn muốn ghép đôi.`, threadID, messageID);
     }

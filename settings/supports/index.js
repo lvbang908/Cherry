@@ -52,12 +52,19 @@ module.exports = function({ api, Cherry, multiple, Threads, Users, Others }) {
     function autoUnsend(ID, Time) {
         return setTimeout(() => api.unsendMessage(ID), Time);
     }
+    
+    function calcTime(fullTime) {
+        var date1 = new Date(fullTime);
+        var date2 = new Date(Cherry.getTime('fullTime'));
+        return parseInt((date2 - date1) / 86400000);
+    }
 
     return {
         commandError,
         downloadFile,
         getContent,
         randomString,
-        autoUnsend
+        autoUnsend,
+        calcTime
     }
 }

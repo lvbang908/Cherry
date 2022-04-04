@@ -1,6 +1,6 @@
 module.exports.info = {
 	name: "pay",
-    version: "1.1.0",
+    version: "1.1.1",
     permissions: 1,
     author: {
         name: "Henry",
@@ -12,7 +12,7 @@ module.exports.info = {
     },
 	group: "Dành Cho Thành Viên",
 	guide: [
-		'[tag]',
+		'[số tiền][tag]',
 	],
 	countdown: 5
 };
@@ -27,7 +27,7 @@ module.exports.run = async({ event, api, args, Others }) => {
         data.push({ ID: id, name: name.replace("@", ""), coin: mentionMoney });
         args = args.filter(item => item != name);
     }
-    var moneyPay = args;
+    var moneyPay = args[0];
     if (isNaN(moneyPay) || moneyPay < 0 || !moneyPay) return api.sendMessage("Số tiền được chuyển phải là số và là số nguyên dương.", threadID, messageID);
     if (senderMoney < moneyPay || Object.keys(mentions).length * moneyPay > senderMoney) return api.sendMessage('Số tiền bạn chuyển cho người khác phải nhỏ hơn hoặc bằng số dư của bạn.', threadID, messageID);
     for (var i of data) {

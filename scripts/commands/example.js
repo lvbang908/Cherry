@@ -15,7 +15,7 @@ module.exports.info = {
 	guide: ['Hướng dẫn', 'Hướng dẫn'],
 	countdown: 5, //Thời gian mà một người có thể sử dụng lại lệnh.
     require: {
-        "key": "version"
+        "key": "version"//Yêu cầu kiểm tra và cài đặt các module cần thiết dành cho lệnh
     }
 };
 

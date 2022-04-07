@@ -20,7 +20,7 @@ module.exports.info = {
 };
 
 module.exports.run = async function({ api, Cherry, event, multiple, args, Users, Threads, Others, permission, prefix }) {
-    //Function này được gọi khi người dùng xử dụng đúng tên lệnh
+    //Function này được gọi khi người dùng sử dụng đúng tên lệnh
 }
 
 //Nếu cần thiết

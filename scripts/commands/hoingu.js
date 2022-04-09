@@ -29,7 +29,6 @@ module.exports.handleMessageReply = async function({ api, event, Users, Reply, m
         case "answer":
             var { data, timeOut } = Reply;
             var { name } = await Users.getData(senderID);
-            console.log(data)
             if (body.toLowerCase().toString() == data.questionData.answer.toLowerCase().toString()) return api.sendMessage(`Chúc mừng ${name}, bạn rất thông minh khi trả lời đúng câu hỏi này.`, threadID, () => {
                 api.unsendMessage(Reply.messageID);
                 clearTimeout(timeOut)

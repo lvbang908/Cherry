@@ -60,8 +60,24 @@ module.exports = (type, data, option) => {
 };
 
 module.exports.event = (data) => {
-    console.log(data);
-    console.log("\n");
+    var { senderID, body, threadID, type, messageReply, mentions, reaction, userID } = data;
+    var color = ["\x1b[31m", "\x1b[32m", "\x1b[33m", "\x1b[34m", "\x1b[35m", "\x1b[36m", "\x1b[37m", "\x1b[38m"];
+    var randomColor = () => { return color[Math.floor(Math.random() * color.length)] };
+    switch (type) {
+      case "message":
+        console.log(`${randomColor()}ID Người Gửi: ${senderID}\x1b[0m\n${randomColor()}ID Box: ${threadID}\x1b[0m\n${randomColor()}Tin Nhắn: ${body}\x1b[0m\n`);
+        break;
+      case "message_reply":
+        console.log(`${randomColor()}ID Người Gửi: ${senderID}\x1b[0m\n${randomColor()}ID Box: ${threadID}\x1b[0m\n${randomColor()}Reply:\x1b[0m {\n      ${randomColor()}Người Gửi: ${messageReply.senderID}\x1b[0m\n      ${randomColor()}Tin Nhắn: ${messageReply.body}\x1b[0m\n}\n${randomColor()}Tin Nhắn: ${body}\x1b[0m\n`);
+        break;
+      case "message_reaction":
+        console.log(`${randomColor()}ID Người Reaction: ${userID}\n${randomColor()}ID Người Gửi: ${senderID}\x1b[0m\n`);
+        break;
+      default:
+        console.log(data);
+        console.log('\n\n');
+        break;
+    }
 }
 
 module.exports.update = (version, data) => {

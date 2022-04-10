@@ -1,3 +1,5 @@
+//Use test sever
+
 module.exports.info = {
 	name: "hoingu",
     version: "1.0.0-beta",

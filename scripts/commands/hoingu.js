@@ -84,6 +84,10 @@ module.exports.run = async function({ api, args, event, Cherry, Users, multiple 
                 var ngu = 0;
                 if (data.question.length > 0) for (var i of data.question) ngu = i.luotngu + ngu;
                 return api.sendMessage(`Cherry Game - Hỏi Ngu\n\nTên người dùng: ${data.name}\nSố câu hỏi: ${data.question.length} câu.\nSố người ngu vì bạn: ${ngu} người.\nBạn đã ngu: ${data.luotngu} lần.`, threadID);
+          case "top":
+                var { data } = await axios.get('https://impartial-mercury-gum.glitch.me/api/hoingu/top');
+                if (!data) return api.sendMessage(`Đã xảy ra lỗi khi lấy dữ liệu từ sever.`, threadID);
+                else return api.sendMessage(data, threadID)
             default:
                 Cherry.commandError(this.info.name, threadID, messageID);
                 break;

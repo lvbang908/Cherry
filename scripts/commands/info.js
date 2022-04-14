@@ -31,8 +31,8 @@ module.exports.run = async function({ api, args, event, Users, Threads }) {
                 `Biệt Danh: ${members[senderID].bietdanh ? members[senderID].bietdanh : "Không có"}\n` +
                 `Tin Nhắn Đã Gửi: ${members[senderID].totalMsg}\n` +
                 `Giới Tính: ${info.gioitinh}\n` +
-                `Mối Quan Hệ: ${info.hasOwnProperty('dating') ? "Đang Hẹn Hò" a: "Độc Thân"}\n` +
-                `Profile: https://www.facebook.com/${info.facebookID}`
+                `Mối Quan Hệ: ${info.hasOwnProperty('dating') ? "Đang Hẹn Hò" : "Độc Thân"}\n` +
+                `Profile: https://www.facebook.com/${encodeURIComponent(info.facebookID)}`
                 return api.sendMessage(msg, threadID, messageID)
             }
             for (var i of Object.keys(mentions)) {
@@ -42,7 +42,7 @@ module.exports.run = async function({ api, args, event, Users, Threads }) {
                 `Tin Nhắn Đã Gửi: ${members[i].totalMsg}\n` +
                 `Giới Tính: ${info.gioitinh}\n` + 
                 `Mối Quan Hệ: ${info.hasOwnProperty('dating') ? "Đang Hẹn Hò" : "Độc Thân"}\n` +
-                `Profile: https://www.facebook.com/${info.facebookID}\n`
+                `Profile: https://www.facebook.com/${encodeURIComponent(info.facebookID)}\n`
             }
             return api.sendMessage(msg, threadID);
         case "threads":

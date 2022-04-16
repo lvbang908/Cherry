@@ -60,23 +60,16 @@ module.exports = (type, data, option) => {
 };
 
 module.exports.event = (data) => {
-    var { senderID, body, threadID, type, messageReply, mentions, reaction, userID } = data;
+    var { senderID, body, threadID, type, messageReply, mentions, reaction, userID, logMessageType, logMessageData, author } = data;
     var color = ["\x1b[31m", "\x1b[32m", "\x1b[33m", "\x1b[34m", "\x1b[35m", "\x1b[36m", "\x1b[37m", "\x1b[38m"];
     var randomColor = () => { return color[Math.floor(Math.random() * color.length)] };
-    switch (type) {
-      case "message":
-        console.log(`${randomColor()}ID Người Gửi: ${senderID}\x1b[0m\n${randomColor()}ID Box: ${threadID}\x1b[0m\n${randomColor()}Tin Nhắn: ${body}\x1b[0m\n`);
-        break;
-      case "message_reply":
-        console.log(`${randomColor()}ID Người Gửi: ${senderID}\x1b[0m\n${randomColor()}ID Box: ${threadID}\x1b[0m\n${randomColor()}Reply:\x1b[0m {\n      ${randomColor()}Người Gửi: ${messageReply.senderID}\x1b[0m\n      ${randomColor()}Tin Nhắn: ${messageReply.body}\x1b[0m\n}\n${randomColor()}Tin Nhắn: ${body}\x1b[0m\n`);
-        break;
-      case "message_reaction":
-        console.log(`${randomColor()}ID Người Reaction: ${userID}\n${randomColor()}ID Người Gửi: ${senderID}\x1b[0m\n`);
-        break;
-      default:
-        console.log(data);
-        console.log('\n\n');
-        break;
+    if (type == 'message') console.log(`${randomColor()}ID Người Gửi: ${senderID}\x1b[0m\n${randomColor()}ID Box: ${threadID}\x1b[0m\n${randomColor()}Tin Nhắn: ${body.replace(/\n\n|\n/g, '\n      ')}\x1b[0m\n`);
+    if (type == 'message_reply') console.log(`${randomColor()}ID Người Gửi: ${senderID}\x1b[0m\n${randomColor()}ID Box: ${threadID}\x1b[0m\n${randomColor()}Reply:\x1b[0m {\n      ${randomColor()}Người Gửi: ${messageReply.senderID}\x1b[0m\n      ${randomColor()}Tin Nhắn: ${messageReply.body.replace(/\n\n|\n/g, '\n                ')}\x1b[0m\n}\n${randomColor()}Tin Nhắn: ${body.replace(/\n\n|\n/g, "\n         ")}\x1b[0m\n`);
+    if (type == 'message_reaction') console.log(`${randomColor()}ID Người Reaction: ${userID}\x1b[0m\n${randomColor()}ID Người Gửi: ${senderID}\x1b[0m\n`);
+    if (type == 'message_unsend') console.log(`${randomColor()}ID Người Gỡ: ${senderID}\x1b[0m\n${randomColor()}Nhóm: ${threadID}\x1b[0m\n`);
+    if (type == 'event') {
+      if (logMessageType == 'log:user-nickname') console.log(`${randomColor()}ID Người Đổi Biệt Danh: ${logMessageData.participant_id}\x1b[0m\n${randomColor()}Biệt Danh Mới: ${logMessageData.nickname}\x1b[0m\n`);
+      if (logMessageType == 'log:thread-name') console.log(`${randomColor()}ID người Đổi: ${author}\x1b[0m\n${randomColor()}Nhóm: ${threadID}\x1b[0m\n${randomColor()}Tên Nhóm Mới: ${logMessageData.name}\x1b[0m\n`);
     }
 }
 

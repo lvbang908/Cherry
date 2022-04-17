@@ -1,6 +1,6 @@
 module.exports.info = {
 	name: "welcome",
-    version: "1.0.2",
+    version: "1.0.3",
     permissions: 1,
     author: {
         name: "Henry",
@@ -27,13 +27,12 @@ module.exports.onLoad = function () {
 module.exports.run = async function ({ args, event, api, Threads, Cherry, multiple }) {
     const { existsSync, createReadStream } = require("fs-extra");
     const { threadID, messageID } = event;
-    const msg = args.slice(1, args.length).join(" ");
+    var msg = args.slice(1, args.length).join(" ");
 
     switch (args[0]) {
         case "text":
-            multiple.allThreadsInfo.get(threadID).msgWelcome = msg;
             await Threads.setData(threadID, { msgWelcome: msg });
-            return api.sendMessage("Đã lưu tùy chỉnh của bạn thành công! dưới đây sẽ là phần preview:", threadID, function () {
+            return api.sendMessage("Đã lưu tùy chỉnh của bạn thành công! dưới đây sẽ là phần preview:", threadID, function() {
                 msg = msg
                 .replace(/\{name}/g, "[Tên thành viên]")
                 .replace(/\{type}/g, "[Bạn/các bạn]")

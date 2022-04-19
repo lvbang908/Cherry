@@ -37,6 +37,7 @@ module.exports.run = async function({ api, event, args, multiple }) {
     if (!args[0]) return api.sendMessage('Bạn cần nhập tên bài hát cần tìm hợp âm.', threadID, messageID);
     var { data } = await axios.get(`https://cherry-sever.glitch.me/api/guitar/search=${encodeURIComponent(args.join(' '))}`);
     if (data.success == false) return api.sendMessage('Đã xảy ra lỗi khi lấy danh sách bài hát cho bạn, vui lòng thử lại sau.', threadID, messageID);
+    if (data.data.length == 0) return api.sendMessage(`Không tìm được bài hát nào dựa trên từ khóa mà bạn tìm kiếm.`, threadID, messageID)
     var msg = `Dưới đây là danh sách những bài hát có hợp âm dựa trên từ khóa bạn đã tìm:\n\n`, number = 1;
     for (var i of data.data) msg += `${number++}. Tên Bài Hát: ${i.title}\nCa Sĩ: ${i.singer}\n\n`;
     msg += `Vui lòng trả lời tin nhắn này kèm số tương ứng với bài hát mà bạn muốn lấy hợp âm.`;

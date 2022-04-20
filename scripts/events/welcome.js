@@ -4,7 +4,7 @@ module.exports.info = {
 	version: "1.0.0",
 	author: {
 		name: "Henry",
-		facebook: ""
+		facebook: "https://facebook.com/s2.henry"
 	},
 	description: "Thông báo bot hoặc người vào nhóm",
 	require: {
@@ -37,7 +37,7 @@ module.exports.run = async function({ api, event, Threads, Cherry, multiple }) {
 	body = body
 	.replace(/\{name}/g, name.join(', '))
 	.replace(/\{type}/g, (addLength > 1) ?  'các bạn' : 'bạn')
-	.replace(/\{soThanhVien}/g, totalMembers)
+	.replace(/\{totalMembers}/g, totalMembers)
 	.replace(/\{threadName}/g, threadName)
 	.replace(/\{time}/g, session)
 	.replace(/\{prefix}/g, prefix ? prefix : Cherry.configs.prefix);

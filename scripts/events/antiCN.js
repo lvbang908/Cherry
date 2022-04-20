@@ -13,7 +13,7 @@ module.exports.run = async function({ api, event, Cherry, Users, Threads }) {
     var { logMessageData, threadID, author } = event;
     var botID = api.getCurrentUserID();
     var { BOTNAME, ADMIN } = Cherry.configs;
-    var { bietdanh } = await Threads.getUser(threadID, botID);
+    var { bietdanh } = await Threads.getUser(threadID, botID) || BOTNAME;
     var nickname = bietdanh ? bietdanh : BOTNAME;
     if (logMessageData.participant_id == botID && author != botID && !ADMIN.includes(author) && logMessageData.nickname != nickname) {
         api.changeNickname(nickname, threadID, botID);

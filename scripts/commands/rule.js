@@ -19,7 +19,7 @@ module.exports.onLoad = function() {
     var { existsSync, mkdirSync, writeFileSync } = require('fs-extra');
     var path = __dirname + '/cache';
     if (!existsSync(path)) mkdirSync(path, { recursive: true });
-    if (!existsSync(path + '/rule.json')) writeFileSync(path + 'rule.json', '{}', { flag: 'a+' });
+    if (!existsSync(path + '/rule.json')) writeFileSync(path + '/rule.json', '{}', { flag: 'a+' });
 }
 
 module.exports.run = async function({ api, event, args, multiple, Cherry, Threads }) {

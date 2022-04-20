@@ -1,6 +1,6 @@
 {
   "name": "cherrybot",
-  "version": "4.5.2",
+  "version": "4.5.3",
   "description": "A simple bot for facebook messenger",
   "main": "cherry.js",
   "scripts": {

@@ -37,7 +37,7 @@ module.exports.run = async function({ api, event, Threads, Cherry, multiple }) {
 	body = body
 	.replace(/\{name}/g, name.join(', '))
 	.replace(/\{type}/g, (addLength > 1) ?  'các bạn' : 'bạn')
-	.replace(/\{totalMembers}/g, totalMembers)
+	.replace(/\{totalMember}/g, totalMembers)
 	.replace(/\{threadName}/g, threadName)
 	.replace(/\{time}/g, session)
 	.replace(/\{prefix}/g, prefix ? prefix : Cherry.configs.prefix);

@@ -52,7 +52,7 @@ module.exports = function({ api, Cherry, multiple, Threads, Users, Others }) {
     function autoUnsend(ID, Time) {
         return setTimeout(() => api.unsendMessage(ID), Time);
     }
-    
+
     function calcTime(fullTime) {
         fullTime = fullTime.match(/[0-9]{2}\/[0-9]{2}\/[0-9]{4}/);
         fullTime = fullTime[0].replace(/\//g, " ").split(' ');
@@ -63,12 +63,19 @@ module.exports = function({ api, Cherry, multiple, Threads, Users, Others }) {
         return parseInt((date2 - date1) / 86400000);
     }
 
+    function session() {
+        var hours = Cherry.getTime('fullTime');
+        var session = hours < 3 ? "đêm khuya" : hours < 8 ? "buổi sáng" : hours < 12 ? "buổi trưa" : hours < 17 ? "buổi chiều" : hours < 23 ? "buổi tối" : "đêm khuya";
+        return session;
+    }
+
     return {
         commandError,
         downloadFile,
         getContent,
         randomString,
         autoUnsend,
-        calcTime
+        calcTime,
+        session
     }
 }

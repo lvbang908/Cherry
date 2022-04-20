@@ -1,6 +1,6 @@
 module.exports.info = {
 	name: "ban",
-	version: "1.0.2",
+	version: "1.1.2",
 	permissions: 2,
 	author: {
 		name: "Henry",
@@ -12,96 +12,102 @@ module.exports.info = {
     },
 	group: "Dành Cho Quản Lí",
 	guide: [
-		'[list/tag]',
+		'[thread/user/list]\nList: [user/thread]',
 	],
 	countdown: 5
 };
 
-module.exports.handleMessageReply = async function({ api, event, multiple, Reply, Users, Cherry }) {
-    var { banned, type, author } = Reply, { mentions, threadID, senderID, body, messageID } = event;
+module.exports.handleMessageReply = async function({ api, event, multiple, Reply, Threads, Users, Cherry }) {
+    var { type, ban, author } = Reply, { mentions, threadID, senderID, body, messageID } = event;
     if (author != senderID) return;
-    var fullTime = Cherry.getTime("fullTime");
     api.unsendMessage(Reply.messageID);
-    switch (type) {
-        case "view":
-            if (Object.keys(mentions).length == 0) return api.sendMessage(`Bạn cần tag những người trong danh sách để xem lí do bị ban của họ.`, threadID, messageID);
-            var msg = '', number = 1;
-            for (var i of Object.keys(mentions)) {
-                for (var info of banned) {
-                    if (i == info.ID) msg += `${number++}. ${info.name}: ${info.banned.lido.join(', ')}\n\nNgười ban: ${info.banned.author}\nNgày ban: ${info.banned.time}\n\n`
-                }
+    if (ban == 'threads') {
+        var { threads } = Reply;
+        if (type == 'ban') {
+            if (!body) return api.sendMessage(`Bạn cần nhập lí do muốn cấm những nhóm này sử dụng Bot.`, threadID, messageID);
+            var authorBan = await Users.getData(senderID);
+            for (var i of threads) {
+                var info = await Threads.getData(i.ID);
+                info.banned = { status: true, lido: [body], author: authorBan.name, type: type, time: Cherry.getTime('fullTime') };
+                await Threads.setData(i.ID, info)
             }
-            return api.sendMessage(msg, threadID, messageID);
-        default:
-            if (!body) return api.sendMessage("Bạn cần nhập lí do.", threadID, messageID);
-            var authorBan = await Users.getData(senderID), error = [], finish = 0;
-            for (var i of Object.keys(banned)) {
-                var bannedInfo = await Users.getData(i);
-                if (bannedInfo.banned && bannedInfo.banned.status == true) {
-                    bannedInfo.banned.lido.push(body);
-                    await Users.setData(i, bannedInfo);
-                    finish++;
-                } else if (!bannedInfo.banned) {
-                    bannedInfo.banned = { status: true, lido: [body], author: authorBan.name, type: type, time: fullTime };
-                    await Users.setData(i, bannedInfo);
-                    multiple.allUsersBanned.set(i);
-                    finish++;
-                } else error.push(i);
-            }
-            return api.sendMessage(`Đã ban thành công ${finish} thành viên.${error.length > 0 ? `\n\nCó đã xảy khi lỗi khi thực hiện với ${error.length} thành viên có ID: ${error.join(', ')}.` : ''}`, threadID)
+            return api.sendMessage(`Đã cấm ${threads.length} nhóm sử dụng Bot.`, threadID, messageID);
+        }
+        body = body.split(' ').filter(item => item <= threads.length);
+        if (body.length < 1) return api.sendMessage(`Các lựa chọn bạn đưa ra không hợp lệ.`, threadID, messageID);
+        var msg = `Bạn có chắc muốn cấm những nhóm này sử dụng Bot?\n\n`, number = 1, change = [];
+        for (var i of body) {
+            var thread = threads[i - 1];
+            msg += `${number++}. ${thread.name}\n`;
+            change.push(thread);
+        }
+        msg += `\nReply tin nhắn này kèm lí do mà bạn cấm những nhóm này sử dụng Bot.`;
+        return api.sendMessage(msg, threadID, (error, info) => multiple.handleMessageReply.push({ name : this.info.name, messageID: info.messageID, threads: change, type: 'ban', ban: 'threads', author: senderID }), messageID);
+    }
+    if (ban == 'users') {
+        var { users } = Reply;
+        if (!body) return api.sendMessage(`Bạn cần nhập lí do muốn cấm những nhóm này sử dụng Bot.`, threadID, messageID);
+        var authorBan = await Users.getData(senderID);
+        for (var i of users) {
+            var info = await Users.getData(i.ID);
+            info.banned = { status: true, lido: [body], author: authorBan.name, type: type, time: Cherry.getTime('fullTime') };
+            await Users.setData(i.ID, info)
+        }
+        return api.sendMessage(`Đã cấm ${threads.length} nhóm sử dụng Bot.`, threadID, messageID);
     }
 }
 
-module.exports.run = async function({ api, event, multiple, args, Users }) {
+module.exports.run = async function({ api, event, multiple, args, Users, Threads, permission }) {
     var { mentions, threadID, messageID, senderID } = event;
-    var Ry = '100005548624106';
+    if (args[0] == 'thread' && permission == 3) {
+        var allThreads = await Threads.getAll(['ID', 'name', 'banned']);
+        var msg = `Dưới đây là những nhóm mà bạn có thể cấm sử dụng Bot:\n\n`, threads = [], number = 1;
+        for (var i of allThreads) {
+            if (!i.banned) {
+                msg += `${number++}. ${i.name}\n`;
+                threads.push(i);
+            }
+        }
+        msg += `\nReply tin nhắn này kèm số tương ứng với nhóm mà bạn muốn cấm sử dụng Bot.\nVí Dụ: 1 2 3 11 14`;
+        return api.sendMessage(msg, threadID, (error, info) => multiple.handleMessageReply.push({ name : this.info.name, messageID: info.messageID, threads: threads, type: 'change', ban: 'threads', author: senderID }), messageID);
+    }
+    if (args[0] == 'user') {
+        if (Object.keys(mentions).length == 0) return api.sendMessage(`Bạn phải tag những người cần ban.`, threadID, messageID);
+        var mention = Object.keys(mentions), users = [], msg = `Bạn có chắc muốn cấm những thành viên dưới đây sử dụng Bot?\n\n`, number = 1;
+        for (var i of mention) {
+            var info = await Users.getData(i);
+            if (!info.banned || info.banned && info.banned.status == false) {
+                users.push({ ID: i, name: info.name });
+                msg += `${number++}. ${info.name}\n`;
+            }
+        }
+        msg += `Reply tin nhắn này với lí do bạn muốn cấm những thành viên này sử dụng Bot.`;
+        return api.sendMessage(msg, threadID, (error, info) => multiple.handleMessageReply.push({ name : this.info.name, messageID: info.messageID, users: users, type: 'ban', ban: 'users', author: senderID }), messageID);
+    }
     if (args[0] == 'list') {
-        var allUsers = await Users.getAll(['banned', 'name']);
-        var banned = [], msg = "Danh sách thành viên đang bị Ban:\n\n", number = 0;
-        for (var i of allUsers) {
-            if (i.banned && i.banned.status == true) {
-                banned.push({ 'ID': i.ID, 'name': i.name, 'banned': i.banned });
+        if (args[1] == 'user') {
+            var allUsers = await Users.getAll(['ID', 'name', 'banned']);
+            var msg = `Dưới đây là danh sách các thành viên bị cấm sử dụng Bot:\n\n`, number = 1, users = [];
+            for (var i of allUsers) {
+                if (i.banned && i.banned.status == true) {
+                    msg += `${number++}. ${i.name}\n`;
+                    users.push(i);
+                }
             }
+            if (users.length == 0) return api.sendMessage(`Hiện tại chưa có thành viên nào bị cấm sử dụng Bot cả.`, threadID, messageID);
+            return api.sendMessage(msg, threadID, messageID);
         }
-        if (banned.length == 0) return api.sendMessage('Hiện tại không có người dùng nào bị ban.', threadID);
-        for (var i of banned) {
-            number++;
-            msg += `${number}. ${i.name} ${i.banned.type == 'superBan' ? 'ngậm ' + i.banned.type : 'bị ' + i.banned.type} từ ${i.banned.time}\n`
-        }
-        return api.sendMessage(`${msg}\nReply tin nhắn này tag kèm người có trong danh sách để xem lí do.`, threadID, (error, info) => {
-            multiple.handleMessageReply.push({
-                name: this.info.name,
-                messageID: info.messageID,
-                author: senderID,
-                banned: banned,
-                type: 'view'
-            });
-        }, messageID);
-    }
-    if (Object.keys(mentions).length == 0) return api.sendMessage("Bạn phải tag những người cần bạn!", threadID, messageID);
-    var mention = Object.keys(mentions), msg = `Bạn có chắc muốn ban ${mention.length > 1 ? 'những người dưới đây' : 'thành viên dưới đây'}?\n\n`, number = 1;
-    for (var [id, name] of Object.entries(mentions)) {
-        if (id == Ry) {
-            var userInfo = await Users.getData(senderID);
-            userInfo.banned = {
-                status: true,
-                lido: "Ngáo đá ban Boss.",
-                author: "Bot Protection",
-                type: 'superBan'
+        if (args[1] == 'thread') {
+            var allThreads = await Threads.getAll(['ID', 'name', 'banned']);
+            var msg = `Dưới đây là danh sách các nhóm bị cấm sử dụng Bot:\n\n`, number = 1, threads = [];
+            for (var i of allThreads) {
+                if (i.banned && i.banned.status == true) {
+                    msg += `${number++}. ${i.name}\n`;
+                    threads.push(i);
+                }
             }
-            await Users.setData(senderID, userInfo);
-            return api.sendMessage("Bạn đã bị ban vì tội ngáo đá (Ban Boss).", threadID, messageID);
+            if (threads.length == 0) return api.sendMessage(`Hiện tại chưa có nhóm nào bị cấm sử dụng Bot cả.`, threadID, messageID);
+            return api.sendMessage(msg, threadID, messageID);
         }
-        msg += `${number++}. ${name.replace("@", "")}\n`
     }
-    msg += `\nVui lòng reply tin nhắn này với lí do bạn muốn ban những người trên.`;
-    return api.sendMessage(msg, threadID, (error, info) => {
-        multiple.handleMessageReply.push({
-            name: this.info.name,
-            messageID: info.messageID,
-            author: senderID,
-            banned: mentions,
-            type: senderID == Ry ? 'superBan' : 'ban'
-        });
-    }, messageID);
 }

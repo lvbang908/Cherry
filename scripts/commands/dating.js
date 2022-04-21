@@ -70,10 +70,11 @@ module.exports.run = async function({ api, event, args, Users, Others, multiple,
             return api.sendMessage(msg, threadID, messageID);
         case 'diemdanh':
             var info = await Users.getData(senderID);
+            var time = Cherry.calcTime(info.dating.time.fullTime);
             if (!info.dating || info.dating && info.dating.status == false) return api.sendMessage(`Đang ế chổng mông ra đòi điểm danh với ai vậy má?`, threadID, messageID);
-            if (!info.dating.diemdanh || Cherry.calcTime(info.dating.time.fullTime) > info.dating.diemdanh) {
+            if (!info.dating.diemdanh || time > info.dating.diemdanh) {
                 var infoMates = await Users.getData(info.dating.mates);
-                info.dating.diemdanh = Cherry.calcTime(info.dating.time.fullTime);
+                info.dating.diemdanh = time;
                 if (info.dating.diemdanh == infoMates.dating.diemdanh) {
                     if (!info.dating.lovepoint || !infoMates.dating.lovepoint) {
                         info.dating.lovepoint = 10;
@@ -89,7 +90,7 @@ module.exports.run = async function({ api, event, args, Users, Others, multiple,
                 }
                 await Users.setData(info.ID, info);
                 return api.sendMessage(`Bạn đã điểm danh thành công, hãy nhắc nhở ${infoMates.name} điểm danh để có thể nhận điểm thân thiết nha 🥰.`, threadID, messageID);
-            } else if (Cherry.calcTime(info.dating.time.fullTime) == info.dating.diemdanh) return api.sendMessage(`Bạn đã điểm danh cho ngày hôm nay rồi, vui lòng chờ nửa kia hoặc quay lại vào ngày mai nha 😗.`, threadID, messageID);
+            } else if (time == info.dating.diemdanh) return api.sendMessage(`Bạn đã điểm danh cho ngày hôm nay rồi, vui lòng chờ nửa kia hoặc quay lại vào ngày mai nha 😗.`, threadID, messageID);
             else return api.sendMessage(`Có lỗi xảy ra khi thực hiện điểm danh cho bạn.`, threadID, messageID);
         case 'top':
             if (args[1] == 'point') {

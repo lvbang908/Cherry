@@ -23,7 +23,7 @@ module.exports.info = {
 async function Sim(content) {
     var axios = require("axios");
     try {
-        var { data } = await axios.get(`https://api.simsimi.net/v2/?text=${encodeURIComponent(content)}&lc=vn`);
+        var { data } = await axios.get(`https://api-sv2.simsimi.net/v2/?text=${encodeURIComponent(content)}&lc=vn&cf=false`);
         return { error: false, data: data }
     } catch (error) {
         return { error: true, data: {} }

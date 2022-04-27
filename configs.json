@@ -1,6 +1,6 @@
 {
     "devMode": true,
-    "encryptAppstate": true,
+    "encryptAppstate": false,
     "testMode": false,
     "allowInbox": true,
     "refreshDatabase": {

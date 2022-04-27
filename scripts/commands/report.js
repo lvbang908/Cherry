@@ -61,6 +61,7 @@ module.exports.handleMessageReply = async function({ api, event, Cherry, multipl
             break;
     }
 }
+
 module.exports.run = async function({ api, event, args, multiple, Users, Threads, Cherry }) {
     var { threadID, senderID, messageID } = event;
     if (!args[0]) return api.sendMessage("Vui lòng nhập nội dung report", threadID, messageID);

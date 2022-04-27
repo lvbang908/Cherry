@@ -1,6 +1,6 @@
 module.exports.info = {
 	name: "sinhnhat",
-	version: "1.0.2",
+	version: "1.0.0",
 	permissions: 1,
 	author: {
 		name: "Henry",
@@ -23,7 +23,7 @@ module.exports.handleEvents = async function({ event, api, Users, multiple }) {
     if (userInfo && userInfo.isBirthday == true && !userInfo.happyBirthday) {
         var msg = `🎂🎉🎊Chúc mừng sinh nhật ${userInfo.name} 🎊🎉🎂\n\nChúc em hạnh phúc đậm đà tình yêu 💏\nChúc em sức khỏe thật nhiều 💪\nChúc em may mắn vạn điều bình an 🍀\n\n`;
         userInfo.gioitinh == "Nam" ? msg += `Chúc em ngày một giàu sang\nTrăm ngàn hạnh phúc, kho tàng tình yêu\nCuối thơ chúc nốt một điều\nChúc em may mắn, sớm chiều thành công🥰` : msg += `Chúc em ngày một giàu sang\nNiềm vui hạnh phúc càng ngày càng xinh\nChúc em êm ấm gia đình\nNăm nay kiếm được phúc tinh cuộc đời 😘`;
-        msg += `\nMọi người nhanh nhanh đến chúc mừng sinh nhật cho bạn ấy đi nào ^^`;
+        msg += `\nMọi người nhanh đến chúc mừng sinh nhật cho bạn ấy đi nào ^^`;
         await Users.setData(senderID, {
             happyBirthday: {
                 status: true,
@@ -34,7 +34,7 @@ module.exports.handleEvents = async function({ event, api, Users, multiple }) {
             tag: userInfo.name,
             id: userInfo.ID
         }
-        return api.sendMessage({ body: msg, mentions: tag }, threadID);
+        return api.sendMessage({ body: msg, mentions: tag}, threadID);
     }
 }
 

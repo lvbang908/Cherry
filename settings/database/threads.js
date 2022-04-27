@@ -1,7 +1,7 @@
 module.exports = function ({ Cherry, api, multiple }) {
     const { writeFileSync, readFileSync } = require("fs-extra");
     var fullTime = Cherry.getTime("fullTime");
-    const { log } = Cherry, { inProcess } = multiple;
+    const { log } = Cherry;
     var path = __dirname + "/data/threadsData.json";
 
     try {
@@ -35,7 +35,7 @@ module.exports = function ({ Cherry, api, multiple }) {
                     color: threadInfo.color,
                     totalMsg: threadInfo.messageCount,
                     adminIDs: threadInfo.adminIDs,
-                    avatarGroup: threadInfo.imageSrc,
+                    isGroup: threadInfo.isGroup,
                     createTime: {
                         timestamp: Date.now(),
                         fullTime: fullTime
@@ -137,6 +137,7 @@ module.exports = function ({ Cherry, api, multiple }) {
         try {
             if (!keys) {
                 var threadInfo = await getData(threadID);
+                console.log(threadInfo)
                 if (Object.keys(threadInfo.members).length == 0) return [];
                 else if (Object.keys(threadInfo.members).length > 0) {
                     var db = [];
@@ -270,10 +271,10 @@ module.exports = function ({ Cherry, api, multiple }) {
             threadInfo.color = newThreadData.color;
             threadInfo.totalMsg = newThreadData.messageCount;
             threadInfo.adminIDs = newThreadData.adminIDs;
-            threadInfo.avatarGroup = newThreadData.imageSrc;
-            if (threadInfo.hasOwnProperty('msgWelcome')) threadInfo.msgWelcome = threadInfo.msgWelcome;
-            if (threadInfo.hasOwnProperty('msgLeave')) threadInfo.msgLeave = threadInfo.msgLeave;
-            if (threadInfo.hasOwnProperty('banned')) threadInfo.banned = threadInfo.banned;
+            threadInfo.isGroup = newThreadData.isGroup;
+            if (threadInfo.msgWelcome) threadInfo.msgWelcome = threadInfo.msgWelcome;
+            if (threadInfo.msgLeave) threadInfo.msgLeave = threadInfo.msgLeave;
+            if (threadInfo.banned) threadInfo.banned = threadInfo.banned;
             threadInfo.createTime = threadInfo.createTime;
             threadInfo.lastUpdate = Date.now();
             await setData(threadID, threadInfo);

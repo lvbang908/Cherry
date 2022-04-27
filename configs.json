@@ -1,0 +1,29 @@
+{
+    "devMode": true,
+    "encryptAppstate": true,
+    "testMode": false,
+    "allowInbox": true,
+    "refreshDatabase": {
+        "status": true,
+        "timeToRefresh": {
+            "users": 28800000,
+            "threads": 21600000
+        }
+    },
+    "saveData": true,
+    "inboxData": false,
+    "commandsDisabled": [],
+    "eventsDisabled": [],
+    "BOTNAME": "Cherry Bot - Created by Henry",
+    "prefix": "#",
+    "BotSystem": "",
+    "ADMIN": [
+        "100005548624106"
+    ],
+    "optionsLogin": {
+        "forceLogin": true,
+        "autoMarkRead": false,
+        "listenEvents": true,
+        "selfListen": true
+    }
+}

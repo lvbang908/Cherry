@@ -22,7 +22,7 @@ module.exports.onLoad = function() {
     if (!existsSync(path + '/rule.json')) writeFileSync(path + '/rule.json', '{}', { flag: 'a+' });
 }
 
-module.exports.run = async function({ api, event, args, multiple, Cherry, Threads }) {
+module.exports.run = async function({ api, event, args, Threads }) {
     var { threadID, messsageID } = event;
     var { readFileSync, writeFileSync } = require('fs-extra');
     var rule = JSON.parse(readFileSync(__dirname + '/cache/rule.json', 'utf8'));

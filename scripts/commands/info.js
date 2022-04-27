@@ -1,6 +1,6 @@
 module.exports.info = {
 	name: "info",
-    version: "1.0.1",
+    version: "1.0.0",
     permissions: 1,
     author: {
         name: "Henry",
@@ -28,21 +28,19 @@ module.exports.run = async function({ api, args, event, Users, Threads }) {
                 var info = await Users.getData(senderID);
                 msg += `<3 ${info.name} <3\n\n` +
                 `Tên: ${info.name}\n` +
-                `Biệt Danh: ${members[senderID].bietdanh ? members[senderID].bietdanh : "Không có"}\n` +
-                `Tin Nhắn Đã Gửi: ${members[senderID].totalMsg}\n` +
+                `Biệt Danh: ${members[senderID].bietdanh}\n` +
                 `Giới Tính: ${info.gioitinh}\n` +
                 `Mối Quan Hệ: ${info.hasOwnProperty('dating') ? "Đang Hẹn Hò" : "Độc Thân"}\n` +
-                `Profile: https://www.facebook.com/${encodeURIComponent(info.facebookID)}`
+                `Profile: https://www.facebook.com/${info.facebookID}`
                 return api.sendMessage(msg, threadID, messageID)
             }
             for (var i of Object.keys(mentions)) {
                 var info = await Users.getData(i);
                 msg += `\n<3 ${info.name} <3\n` +
-                `Biệt Danh: ${members[i].bietdanh ? members[i].bietdanh : "Không có"}\n` +
-                `Tin Nhắn Đã Gửi: ${members[i].totalMsg}\n` +
-                `Giới Tính: ${info.gioitinh}\n` + 
+                `Biệt Danh: ${members[i].bietdanh}\n` +
+                `Giới Tính: ${info.gioitinh}` + 
                 `Mối Quan Hệ: ${info.hasOwnProperty('dating') ? "Đang Hẹn Hò" : "Độc Thân"}\n` +
-                `Profile: https://www.facebook.com/${encodeURIComponent(info.facebookID)}\n`
+                `Profile: https://www.facebook.com/${info.facebookID}\n`
             }
             return api.sendMessage(msg, threadID);
         case "threads":

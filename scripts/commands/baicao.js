@@ -1,6 +1,6 @@
 module.exports.info = {
 	name: "baicao",
-	version: "1.0.1",
+	version: "1.0.0",
 	permissions: 1,
 	author: {
 		name: "Henry",

@@ -1,7 +1,7 @@
 module.exports = function ({ Cherry, api, multiple }) {
     const { readFileSync, writeFileSync } = require("fs-extra");
     var fullTime = Cherry.getTime("fullTime");
-    const { log } = Cherry, { inProcess } = multiple;
+    const { log } = Cherry;
     var path = __dirname + "/data/usersData.json";
 
     try {

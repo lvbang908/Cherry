@@ -1,4 +1,3 @@
- //Bắt buộc phải có
 module.exports.info = {
 	name: "Tên Lệnh",
 	version: "Phiên Bản Của Lệnh",
@@ -15,7 +14,7 @@ module.exports.info = {
 	guide: ['Hướng dẫn', 'Hướng dẫn'],
 	countdown: 5, //Thời gian mà một người có thể sử dụng lại lệnh.
     require: {
-        "key": "version"//Yêu cầu kiểm tra và cài đặt các module cần thiết dành cho lệnh
+        "key": "version"
     }
 };
 
@@ -23,7 +22,6 @@ module.exports.run = async function({ api, Cherry, event, multiple, args, Users,
     //Function này được gọi khi người dùng sử dụng đúng tên lệnh
 }
 
-//Nếu cần thiết
 module.exports.handleEvents = async function({ event, api, Cherry, multiple, Users, Threads, Others }) {
     //Function này được gọi khi có một event mới
 }

@@ -30,14 +30,6 @@ module.exports.run = async function({ api, event, Cherry, multiple, Users, Threa
     if (logMessageType == 'log:unsubscribe' && logMessageData.leftParticipantFbId == api.getCurrentUserID()) {
         var info = await Threads.getData(threadID);
         var { name } = await Users.getData(author);
-        info.banned = {
-          status: true,
-          lido: ['Kick Bot'],
-          author: 'ADMIN',
-          type: type,
-          time: Cherry.getTime('fullTime')
-        }
-        await Threads.setData(threadID, info);
         var msg = `==== Bot Bị Kick ====\n\n` +
         `Người Kick: ${name}\n` +
         `ID: ${author}\n` +

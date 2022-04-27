@@ -56,6 +56,7 @@ module.exports.handleMessageReply = async function({ api, event, Users, Reply, m
             var { question, author } = Reply;
             var { name } = await Users.getData(senderID);
             var { data } = await axios.post(`https://cherry-sever.glitch.me/api/hoingu`, { ID: senderID, question: question, name: name, answer: body, type: 'newQuestion' });
+            console.log(data)
             if (data.status == true) return api.sendMessage(`Câu hỏi của bạn đã được gửi thành công, bạn có thể xem thông tin bằng cách gửi 'hoingu info'.`, threadID, messageID);
             else return api.sendMessage(`Đã có lỗi xảy ra khi gửi câu hỏi của bạn, vui lòng thử lại sau.`, threadID, messageID);
         default:

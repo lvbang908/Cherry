@@ -1,0 +1,13 @@
+{
+    "custom": {
+        "note": "Bạn có thể custom Bot gửi tin nhắn theo giờ ở đây. Lưu Ý: Mẫu biến là 'Giờ:Phút': ['Tin Nhắn 1', 'Tin Nhắn 2', '...']",
+        "12:00": [
+            "Bạn có biết:\n\nAnh Ry đã tạo ra tôi trong lúc ngáo đá.",
+            "Bạn có biết:\n\nNgười chạy Bot này rất cute?"
+        ],
+        "19:56": [
+            "Bạn có biết:\n\nTôi là một con Bot bị ngáo?",
+            "Nếu bạn có đam mê về lập trình và muốn phát triển Bot này. Hãy tham gia với chúng tôi:\n\nhttps://m.me/j/AbbQMwUPesGscPA4/"
+        ]
+    }
+}

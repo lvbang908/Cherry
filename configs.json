@@ -17,12 +17,10 @@
     "BOTNAME": "Cherry Bot - Created by Henry",
     "prefix": "#",
     "BotSystem": "",
-    "ADMIN": [
-        "100005548624106"
-    ],
+    "ADMIN": [""],
     "optionsLogin": {
         "forceLogin": true,
-        "autoMarkRead": false,
+        "autoMarkRead": true,
         "listenEvents": true,
         "selfListen": true
     }

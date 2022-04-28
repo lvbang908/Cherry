@@ -88,7 +88,7 @@ module.exports = function ({ Cherry, api, multiple }) {
             if (!userID) throw new Error("ID người dùng không được để trống");
             if (isNaN(userID)) throw new Error("ID người dùng không hợp lệ");
             var threadData = await getData(threadID);
-            if (!threadData.members.hasOwnProperty(userID)) throw new Error(`Người dùng mang ID: ${userID} không tồn tại trong Database`);
+            if (!threadData.members.hasOwnProperty(userID)) throw new Error(`Người dùng mang ID: ${userID} không tồn tại trong Database của nhóm này`);
             delete threadData.members[userID];
             await setData(threadID, threadData);
         } catch (error) {
@@ -100,11 +100,11 @@ module.exports = function ({ Cherry, api, multiple }) {
         try {
             if (!threadID) throw new Error("threadID không được để trống");
             if (isNaN(threadID)) throw new Error("threadID không hợp lệ");
-            if (!threadsData.hasOwnProperty(threadID)) throw new Error(`Threads mang ID: ${threadID} không tồn tại trong Database`);
+            if (!threadsData.hasOwnProperty(threadID)) await createData(threadID);
             if (!userID) throw new Error("ID người dùng không được để trống");
             if (isNaN(userID)) throw new Error("ID người dùng không hợp lệ");
             var threadData = await getData(threadID);
-            if (!threadData.members.hasOwnProperty(userID)) throw new Error(`Người dùng mang ID: ${userID} không tồn tại trong Database`);
+            if (!threadData.members.hasOwnProperty(userID)) await addMember(threadID, userID);
             if (typeof options != 'object') throw new Error("Tham số options truyền vào phải là 1 object");
             var member = threadData.members[userID];
             member = {...member, ...options};
@@ -122,12 +122,12 @@ module.exports = function ({ Cherry, api, multiple }) {
         try {
             if (!threadID) throw new Error("threadID không được để trống");
             if (isNaN(threadID)) throw new Error("threadID không hợp lệ");
-            if (!threadsData.hasOwnProperty(threadID)) throw new Error(`Threads mang ID: ${threadID} không tồn tại trong Database`);
+            if (!threadsData.hasOwnProperty(threadID)) await createData(threadID);
             if (!userID) throw new Error("ID người dùng không được để trống");
             if (isNaN(userID)) throw new Error("ID người dùng không hợp lệ");
             var threadData = await getData(threadID);
-            if (!threadData.members.hasOwnProperty(userID)) throw new Error(`Người dùng mang ID: ${userID} không tồn tại trong Database`);
-            return threadsData[threadID].members[userID];
+            if (!threadData.members.hasOwnProperty(userID)) await addMember(threadID, userID);
+            return threadData.members[userID];
         } catch (error) {
             return log("THREADS - GET USERS", error.stack, "error");
         }
@@ -137,7 +137,6 @@ module.exports = function ({ Cherry, api, multiple }) {
         try {
             if (!keys) {
                 var threadInfo = await getData(threadID);
-                console.log(threadInfo)
                 if (Object.keys(threadInfo.members).length == 0) return [];
                 else if (Object.keys(threadInfo.members).length > 0) {
                     var db = [];

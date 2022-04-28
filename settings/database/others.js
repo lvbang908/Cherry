@@ -72,7 +72,9 @@ module.exports = function ({ Cherry, multiple }) {
         try {
             if (!userID) throw new Error ("ID người dùng không được để trống");
             if (isNaN(userID)) throw new Error ("ID người dùng không hợp lệ");
-            if (!othersData.hasOwnProperty(userID)) await createData(userID);
+            if (!othersData.hasOwnProperty(userID)) await createData(userID, (error, info) => {
+                return info;
+            });
             const data = othersData[userID];
             if (callback && typeof callback == "function") callback(null, data);
             return data;
@@ -86,13 +88,10 @@ module.exports = function ({ Cherry, multiple }) {
         try {
             if (!userID) throw new Error("userID không được để trống");
             if (isNaN(userID)) throw new Error("userID không hợp lệ");
-            if (!othersData.hasOwnProperty(userID)) throw new Error (`Người dùng mang ID: ${userID} không tồn tại trong Database`);
+            if (!othersData.hasOwnProperty(userID)) await createData(userID);
             if (typeof options != 'object') throw new Error("Tham số options truyền vào phải là 1 object");
-            othersData[userID] = {
-                ...othersData[userID],
-                ...options
-            }
-           await saveData(othersData)
+            othersData[userID] = {...othersData[userID], ...options};
+            await saveData(othersData)
             if (callback && typeof callback == "function") callback(null, othersData[userID]);
             return othersData[userID];
         } catch (error) {

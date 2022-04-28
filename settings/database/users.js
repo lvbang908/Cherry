@@ -99,7 +99,7 @@ module.exports = function ({ Cherry, api, multiple }) {
             if (!userID) throw new Error("ID người dùng không được để trống");
             if (isNaN(userID)) throw new Error("ID người dùng không hợp lệ");
             if (!userID) throw new Error("userID không được để trống");
-            if (!usersData.hasOwnProperty(userID)) throw new Error(`Người dùng mang ID: ${userID} không tồn tại trong Database`);
+            if (!usersData.hasOwnProperty(userID)) await createData(userID);
             if (typeof options != 'object') throw new Error("Tham số options truyền vào phải là 1 object");
             usersData[userID] = {...usersData[userID], ...options};
             await saveData(usersData);
@@ -148,16 +148,9 @@ module.exports = function ({ Cherry, api, multiple }) {
             userInfo.facebookID = newUserData.vanity || newUserData.name;
             userInfo.gioitinh = newUserData.gender == 1 ? "Nữ" : "Nam";
             userInfo.isBirthday = newUserData.isBirthday;
-            if (userInfo.hasOwnProperty('happyBirthday') && userInfo.happyBirthday.timestamp != "") {
-                if (Date.now() - userInfo.happyBirthday.timestamp > 86400000) {
-                    userInfo.happyBirthday = {
-                        status: false,
-                        timestamp: ""
-                    }
-                }
-            }
-            if (userInfo.hasOwnProperty('banned')) userInfo.banned = userInfo.banned;
-            if (userInfo.hasOwnProperty('active')) userInfo.active = userInfo.active;
+            if (userInfo.happyBirthday) if (Date.now() - userInfo.happyBirthday.timestamp > 86400000) delete userInfo.happyBirthday;
+            if (userInfo.banned) userInfo.banned = userInfo.banned;
+            if (userInfo.active) userInfo.active = userInfo.active;
             userInfo.createTime = userInfo.createTime;
             userInfo.lastUpdate = Date.now();
             await setData(userID, userInfo);

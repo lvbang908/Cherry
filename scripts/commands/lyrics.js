@@ -25,7 +25,7 @@ module.exports.run = async function({ api, event, args })  {
     var { threadID, messageID } = event;
     var axios = require("axios");
     const { data } = await axios.get(`https://jrt-api.j-jrt-official.repl.co/lyrics?q=${encodeURIComponent(args.join(' '))}`);
-    var { error, name, singer } = data;
+    var { error, name, singer, lyrics } = data;
     if (error) return api.sendMessage("Lỗi khi lấy bài hát", threadID, messageID);
     return api.sendMessage(`[•] Tên bài hát: ${name}\n[•] Tên ca sĩ: ${singer}\n≻───── •Cherry• ─────≺\n[•] Lời bài hát:\n${lyrics} `, threadID, messageID);
 }

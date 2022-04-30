@@ -136,8 +136,7 @@ module.exports.run = async function({ api, event, args, Users, Others, multiple,
                 }
                 return api.sendMessage(msg, threadID);
             }
-        case 'shop':
-            var shop = JSON.parse(readFileSync(__dirname))
+		    break;
         default:
             return api.sendMessage(`Bạn cần nhập giới tính của đối tượng mà bạn muốn ghép đôi.`, threadID, messageID);
     }

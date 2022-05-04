@@ -38,5 +38,8 @@ module.exports = function({ api, Cherry, multiple }) {
     var supports = require(`${main}/settings/support/`) ({ api, Cherry, multiple, Threads, Users, Others });
     Object.assign(Cherry, supports);
     require(`${main}/custom`) ({ api, Cherry, multiple, Threads, Users, Others });
+    
+    multiple.timeStart.fullTime = Cherry.getTime('fullTime');
+    
     return { Threads, Users, Others };
 }

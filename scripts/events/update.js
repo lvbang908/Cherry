@@ -17,7 +17,7 @@ module.exports.run = async function({ api, event, Threads }) {
         await Threads.setData(threadID, threadInfo);
     }
     if (logMessageData.ADMIN_EVENT == 'remove_admin') {
-        threadInfo.adminIDs = threadInfo.adminIDs.some(item => item.id != logMessageData.TARGET_ID);
+        threadInfo.adminIDs = threadInfo.adminIDs.filter(item => item.id != logMessageData.TARGET_ID);
         await Threads.setData(threadID, threadInfo);
     }
     return api.sendMessage(`Dữ liệu nhóm đã được làm mới.`, threadID);

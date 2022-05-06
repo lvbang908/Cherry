@@ -11,9 +11,7 @@ module.exports.info = {
         short: "Resend"
     },
 	group: "Tools",
-	guide: [
-		'',
-	],
+	guide: [],
 	countdown: 5,
     hide: true,
     require: {
@@ -23,7 +21,7 @@ module.exports.info = {
     configs: {
         status: false,
         ID: '0',//ID mà bot sẽ gửi tin nhắn mà thành viên đã gỡ về đó
-        banned: ["ID", "Box", "Bot", "Sẽ", "Không", "Gửi lại tin nhắn khi có thành viên gỡ"]
+        banned: ["ID box mà", "Bot sẽ không gửi lại tin nhắn khi có thành viên gỡ"]
     }
 };
 
@@ -45,25 +43,15 @@ module.exports.handleEvents = async function ({ event, api, Cherry, Users }) {
         if (!getMsg) return;
         let { name } = await Users.getData(senderID);
         if (getMsg.attachment.length == 0) return api.sendMessage(`${name} đã gỡ 1 tin nhắn.\n\nNội dung: ${getMsg.body}`, resend.ID);
-        var msg = { body: `${name} vừa gỡ ${getMsg.attachment.length} tệp đính kèm. ${getMsg.body ? `Với nội dung:\n\n${getMsg.body}` : ''}`, attachment: [] }, path = [], number = 1, fileType;
-        for (var i of getMsg.attachment) {
-            if (i.type == 'photo') fileType = '.png';
-            if (i.type == 'audio') fileType = '.mp3';
-            if (i.type == 'video') fileType = '.mp4';
-            if (!fileType) continue;
-            var filePath = `${__dirname}/cache/${threadID}_${senderID}_${number++}${fileType}`;
-            await Cherry.downloadFile(`${i.url}`, filePath);
-            msg.attachment.push(createReadStream(filePath));
-            path.push(filePath);
-        }
+        var msg = { body: `${name} vừa gỡ ${getMsg.attachment.length} tệp đính kèm. ${getMsg.body ? `Với nội dung:\n\n${getMsg.body}` : ''}`, attachment: [] };
+        var { error, path } = await Cherry.saveAttachments(getMsg.attachment, __dirname + '/cache/');
+        if (error) return api.sendMessage(`Đã xảy ra lỗi khi lấy attachments cho tin nhắn mà thành viên đã gỡ\n\n${error}`, resend.ID);
+        for (var i of path) msg.attachment.push(createReadStream(i));
         return api.sendMessage(msg, resend.ID, () => {
             for (var i of path) unlinkSync(i);
         })
     }
-    Cherry.logMessage.set(messageID, {
-        body: body,
-        attachment: attachments
-    });
+    Cherry.logMessage.set(messageID, { body: body, attachment: attachments });
 }
         
 module.exports.run = async function({ api, event, Cherry }) {

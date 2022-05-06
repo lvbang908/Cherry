@@ -10,20 +10,13 @@ module.exports = function({ api, Cherry, multiple, Threads, Users, Others }) {
         const { createWriteStream } = require('fs-extra');
         const axios = require('axios');
     
-        const response = await axios({
-            method: 'GET',
-            responseType: 'stream',
-            url
-        });
-    
-        const writer = createWriteStream(path);
-    
-        response.data.pipe(writer);
-    
+        var { data } = await axios.get(url, { responseType: 'stream' });
+        var writer = createWriteStream(path);
+        data.pipe(writer);
         return new Promise((resolve, reject) => {
             writer.on('finish', resolve);
             writer.on('error', reject);
-        });
+        })
     }
 
     async function getContent(link) {
@@ -69,5 +62,24 @@ module.exports = function({ api, Cherry, multiple, Threads, Users, Others }) {
         return session;
     }
 
-    return { commandError, downloadFile, getContent, randomString, autoUnsend, calcTime, session }
+    async function saveAttachments(attachments, saveTo) {
+        try {
+            if (!Array.isArray(attachments)) return console.log('Attachments phải là một Array.');
+            if (!/\/$/g.test(saveTo)) return console.log('Đường dẫn để lưu phải là một thư mục, không phải một tệp tin.');
+            var path = [], number = 1;
+            for (var i of attachments) {
+                var dotEx = ['photo', 'audio', 'video', 'gif'];
+                if (!dotEx.includes(i.type)) continue;
+                var fileType = i.type.replace('photo', '.png').replace('audio', '.mp3').replace('video', '.mp4').replace('gif', '.gif');
+                var downloadTo = saveTo + `${i.filename}_${number++}${fileType}`;
+                await Cherry.downloadFile(`${i.url}`, downloadTo);
+                path.push(downloadTo);
+            }
+            return { error: null, path: path };
+        } catch (error) {
+            return { error: error, path: null };
+        }
+    }
+
+    return { commandError, downloadFile, getContent, randomString, autoUnsend, calcTime, session, saveAttachments }
 }

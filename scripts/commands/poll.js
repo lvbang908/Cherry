@@ -11,7 +11,7 @@ module.exports.info = {
         short: "Cuộc thăm dò ý kiến"
     },
 	group: "Dành Cho Thành Viên",
-	guide: ['pollname: option, option, option'],
+	guide: ['pollname: option, option, option...'],
 	countdown: 5
 };
 

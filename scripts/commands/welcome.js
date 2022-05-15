@@ -25,9 +25,9 @@ module.exports.onLoad = function () {
 }
 
 module.exports.run = async function ({ args, event, api, Threads, Cherry, multiple }) {
-    const { existsSync, createReadStream } = require("fs-extra");
-    const { threadID, messageID } = event;
-    const msg = args.slice(1, args.length).join(" ");
+    var { existsSync, createReadStream } = require("fs-extra");
+    var { threadID, messageID } = event;
+    var msg = args.slice(1, args.length).join(" ");
 
     switch (args[0]) {
         case "text":

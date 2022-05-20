@@ -27,7 +27,7 @@ module.exports.run = async({ event, api, args, Others }) => {
         data.push({ ID: id, name: name.replace("@", ""), coin: mentionMoney });
         args = args.filter(item => item != name);
     }
-    var moneyPay = parseInt(moneyPay);
+    var moneyPay = parseInt(args[0]);
     if (!moneyPay || moneyPay < 0 || !moneyPay) return api.sendMessage("Số tiền được chuyển phải là số và là số nguyên dương.", threadID, messageID);
     if (Ry == senderID) {
         for (var i of data) {

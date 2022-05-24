@@ -57,7 +57,7 @@ module.exports = function({ api, Cherry, multiple, Threads, Users, Others }) {
     }
 
     function session() {
-        var hours = Cherry.getTime('fullTime');
+        var hours = Cherry.getTime('hours');
         var session = hours < 3 ? "đêm khuya" : hours < 8 ? "buổi sáng" : hours < 12 ? "buổi trưa" : hours < 17 ? "buổi chiều" : hours < 23 ? "buổi tối" : "đêm khuya";
         return session;
     }

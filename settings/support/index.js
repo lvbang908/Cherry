@@ -57,15 +57,15 @@ module.exports = function({ api, Cherry, multiple, Threads, Users, Others }) {
     }
 
     function session() {
-        var hours = Cherry.getTime('hours');
+        var hours = Cherry.getTime('fullTime');
         var session = hours < 3 ? "đêm khuya" : hours < 8 ? "buổi sáng" : hours < 12 ? "buổi trưa" : hours < 17 ? "buổi chiều" : hours < 23 ? "buổi tối" : "đêm khuya";
         return session;
     }
 
     async function saveAttachments(attachments, saveTo) {
         try {
-            if (!Array.isArray(attachments)) return console.log('Attachments phải là một Array.');
-            if (!/\/$/g.test(saveTo)) return console.log('Đường dẫn để lưu phải là một thư mục, không phải một tệp tin.');
+            if (!Array.isArray(attachments)) throw new Error('Attachments phải là một Array.');
+            if (!/\/$/g.test(saveTo)) throw new Error('Đường dẫn để lưu phải là một thư mục, không phải một tệp tin.');
             var path = [], number = 1;
             for (var i of attachments) {
                 var dotEx = ['photo', 'audio', 'video', 'gif'];
@@ -81,5 +81,37 @@ module.exports = function({ api, Cherry, multiple, Threads, Users, Others }) {
         }
     }
 
-    return { commandError, downloadFile, getContent, randomString, autoUnsend, calcTime, session, saveAttachments }
+    function timestampToDate(timestamp) {
+        try {
+            if (!timestamp || timestamp < 0 || isNaN(timestamp) || !parseInt(timestamp)) throw new Error(`Bạn cần nhập vào một số nguyên lớn hơn 0`);
+            var convert = `${new Date(timestamp)}`;
+            var month = { "Jan": 01, "Feb": 02, "Mar": 03, "Apr": 04, "May": 05, "Jun": 06, "Jul": 07, "Aug": 08, "Sep": 09, "Oct": 10, "Nov": 11, "Dec": 12 };
+            var _fullTime = convert.match(/[A-Za-z]{3} [0-9]{2} [0-9]{4} [0-9]{2}:[0-9]{2}:[0-9]{2}/)[0];
+            var date = _fullTime.match(/[A-Za-z]{3} [0-9]{2} [0-9]{4}/)[0];
+            var time = _fullTime.match(/[0-9]{2}:[0-9]{2}:[0-9]{2}/)[0];
+            var day = date.match(/[0-9]{2}/)[0];
+            var year = date.match(/[0-9]{4}/)[0];
+            var _month = month[date.match(/[A-Za-z]{3}/)[0]] < 10 ? `0${month[date.match(/[A-Za-z]{3}/)[0]]}` : month[date.match(/[A-Za-z]{3}/)[0]];
+            return { error: null, data: { fullTime: `${day}/${_month}/${year} ${time}`, time: time, day: day, month: _month, year: year } }
+        } catch (error) {
+            return { error: error, data: null }
+        }
+    }
+    
+    function dateToTimeStamp(date) {
+        try {
+            if (!date.match(/[0-9]{2}\/[0-9]{2}\/[0-9]{4} [0-9]{2}:[0-9]{2}:[0-9]{2}/)) throw new Error(`Định dạng ngày giờ này không được hỗ trợ, định dạng được hỗ trợ là: DD/MM/YYYY hh:mm:ss`);
+            if (!parseInt(date) || isNaN(date)) throw new Error(`Định dạng ngày giờ không chính xác, vui lòng kiểm tra và thử lại`);
+            var day = date.slice(0, 2);
+            var month = date.slice(3, 5);
+            var year = date.slice(6, 10);
+            var time = date.match(/[0-9]{2}:[0-9]{2}:[0-9]{2}/)[0];
+            var timestamp = Date.parse(`${year}/${month}/${day} ${time}`);
+            return { error: null, data: { timestamp: timestamp } }
+        } catch (error) {
+            return { error: error, data: null }
+        }
+    }
+
+    return { commandError, downloadFile, getContent, randomString, autoUnsend, calcTime, session, saveAttachments, timestampToDate, dateToTimeStamp }
 }

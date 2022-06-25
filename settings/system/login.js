@@ -1,5 +1,5 @@
 module.exports = async function({ Cherry, multiple }) {
-    var login = require("fca-cherry");
+    var login = require("fb-chat-api");
     var { readFileSync } = require("fs-extra");
     var { log } = Cherry, main = multiple.workPlace;
     var sha256 = require('./data/sha256');
